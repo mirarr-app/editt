@@ -1,7 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:window_manager/window_manager.dart';
 import 'screens/viewer_screen.dart';
 
-void main(List<String> args) {
+void main(List<String> args) async {
+  // Ensure Flutter binding is initialized
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Configure window manager
+  await windowManager.ensureInitialized();
+  
+  const windowOptions = WindowOptions(
+    titleBarStyle: TitleBarStyle.hidden,
+    minimumSize: Size(800, 600),
+    center: true,
+  );
+  
+  await windowManager.waitUntilReadyToShow(windowOptions, () async {
+    await windowManager.show();
+    await windowManager.focus();
+  });
+
   // Parse command-line arguments for image path
   String? initialImagePath;
   if (args.isNotEmpty) {

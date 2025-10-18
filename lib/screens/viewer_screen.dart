@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:desktop_drop/desktop_drop.dart';
+import 'package:window_manager/window_manager.dart';
 import '../services/file_service.dart';
 import '../widgets/image_viewer.dart';
 import 'editor_screen.dart';
@@ -99,15 +100,44 @@ class _ViewerScreenState extends State<ViewerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Editt - Photo Viewer'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.folder_open),
-            onPressed: _pickImage,
-            tooltip: 'Open Image',
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(50),
+        child: GestureDetector(
+          onPanStart: (details) {
+            windowManager.startDragging();
+          },
+          child: AppBar(
+            title: const Text('Editt - Photo Viewer'),
+            actions: [
+              IconButton(
+                icon: const Icon(Icons.folder_open),
+                onPressed: _pickImage,
+                tooltip: 'Open Image',
+              ),
+              IconButton(
+                icon: const Icon(Icons.remove),
+                onPressed: () => windowManager.minimize(),
+                tooltip: 'Minimize',
+              ),
+              IconButton(
+                icon: const Icon(Icons.crop_square),
+                onPressed: () async {
+                  if (await windowManager.isMaximized()) {
+                    windowManager.unmaximize();
+                  } else {
+                    windowManager.maximize();
+                  }
+                },
+                tooltip: 'Maximize/Restore',
+              ),
+              IconButton(
+                icon: const Icon(Icons.close),
+                onPressed: () => windowManager.close(),
+                tooltip: 'Close',
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       body: DropTarget(
         onDragEntered: (details) {
