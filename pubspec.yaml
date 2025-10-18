@@ -1,0 +1,33 @@
+name: editt
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.3
+
+dependencies:
+  flutter:
+    sdk: flutter
+  pro_image_editor: ^11.10.1
+  file_selector: ^1.0.0
+  image: ^4.0.0
+  path_provider: ^2.0.0
+  path: ^1.8.0
+  desktop_drop: ^0.4.4
+  window_manager: ^0.5.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/fonts/
+    - assets/images/image.png
+  fonts:
+    - family: JetbrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono.ttf
