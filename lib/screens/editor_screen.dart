@@ -64,15 +64,16 @@ class _EditorScreenState extends State<EditorScreen> {
   }
 
   Future<void> _onEditingComplete(Uint8List editedBytes) async {
-    // Store the bytes and schedule the save dialog to show after this frame
+    // Store the bytes immediately
     _editedImageBytes = editedBytes;
     
-    // Use addPostFrameCallback to ensure ProImageEditor's loading dialog closes first
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (mounted && context.mounted && !_isProcessing) {
-        _showSaveDialogAndSave(editedBytes);
-      }
-    });
+    // Small delay to let the loading dialog dismiss
+    await Future.delayed(const Duration(milliseconds: 100));
+    
+    // Show save dialog
+    if (mounted && context.mounted && !_isProcessing) {
+      _showSaveDialogAndSave(editedBytes).ignore();
+    }
   }
 
   Future<void> _showSaveDialogAndSave(Uint8List editedBytes) async {
@@ -84,6 +85,13 @@ class _EditorScreenState extends State<EditorScreen> {
     
     try {
       // Show the save dialog
+      if (!mounted || !context.mounted) {
+        setState(() {
+          _isProcessing = false;
+        });
+        return;
+      }
+      
       final result = await showSaveDialog(
         context: context,
         originalFilePath: widget.imageFile.path,
@@ -91,16 +99,20 @@ class _EditorScreenState extends State<EditorScreen> {
 
       // User cancelled
       if (!mounted) {
-        setState(() {
-          _isProcessing = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isProcessing = false;
+          });
+        }
         return;
       }
       
       if (result == null || result['option'] == SaveOption.cancel) {
-        setState(() {
-          _isProcessing = false;
-        });
+        if (mounted) {
+          setState(() {
+            _isProcessing = false;
+          });
+        }
         return;
       }
 
