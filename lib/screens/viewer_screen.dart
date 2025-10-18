@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:desktop_drop/desktop_drop.dart';
 import '../services/file_service.dart';
 import '../widgets/image_viewer.dart';
 import 'editor_screen.dart';
@@ -17,6 +18,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
   File? _currentImage;
   bool _isLoading = false;
   String? _errorMessage;
+  bool _isDragging = false;
 
   @override
   void initState() {
@@ -79,6 +81,21 @@ class _ViewerScreenState extends State<ViewerScreen> {
     }
   }
 
+  Future<void> _handleDroppedFiles(List<String> paths) async {
+    if (paths.isEmpty) return;
+    
+    final filePath = paths.first;
+    
+    // Validate it's an image file
+    if (FileService.validateImagePath(filePath)) {
+      await _loadImageFromPath(filePath);
+    } else {
+      setState(() {
+        _errorMessage = 'Invalid file type. Please drop an image file.';
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -92,7 +109,27 @@ class _ViewerScreenState extends State<ViewerScreen> {
           ),
         ],
       ),
-      body: _buildBody(),
+      body: DropTarget(
+        onDragEntered: (details) {
+          setState(() {
+            _isDragging = true;
+          });
+        },
+        onDragExited: (details) {
+          setState(() {
+            _isDragging = false;
+          });
+        },
+        onDragDone: (details) async {
+          setState(() {
+            _isDragging = false;
+          });
+          
+          final paths = details.files.map((file) => file.path).toList();
+          await _handleDroppedFiles(paths);
+        },
+        child: _buildBody(),
+      ),
     );
   }
 
@@ -127,34 +164,61 @@ class _ViewerScreenState extends State<ViewerScreen> {
     }
 
     if (_currentImage == null) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.image_outlined, size: 128, color: Colors.grey),
-            const SizedBox(height: 24),
-            const Text(
-              'No image loaded',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-            ),
-            const SizedBox(height: 8),
-            const Text(
-              'Open an image to get started',
-              style: TextStyle(fontSize: 14, color: Colors.grey),
-            ),
-            const SizedBox(height: 24),
-            ElevatedButton.icon(
-              onPressed: _pickImage,
-              icon: const Icon(Icons.folder_open),
-              label: const Text('Open Image'),
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 32,
-                  vertical: 16,
+      return Container(
+        decoration: _isDragging
+            ? BoxDecoration(
+                border: Border.all(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 3,
+                ),
+                color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.1),
+              )
+            : null,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                _isDragging ? Icons.file_download : Icons.image_outlined,
+                size: 128,
+                color: _isDragging
+                    ? Theme.of(context).colorScheme.primary
+                    : Colors.grey,
+              ),
+              const SizedBox(height: 24),
+              Text(
+                _isDragging ? 'Drop image here' : 'No image loaded',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
+                  color: _isDragging
+                      ? Theme.of(context).colorScheme.primary
+                      : null,
                 ),
               ),
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                _isDragging
+                    ? 'Release to open'
+                    : 'Open an image or drag & drop',
+                style: const TextStyle(fontSize: 14, color: Colors.grey),
+              ),
+              if (!_isDragging) ...[
+                const SizedBox(height: 24),
+                ElevatedButton.icon(
+                  onPressed: _pickImage,
+                  icon: const Icon(Icons.folder_open),
+                  label: const Text('Open Image'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 32,
+                      vertical: 16,
+                    ),
+                  ),
+                ),
+              ],
+            ],
+          ),
         ),
       );
     }
