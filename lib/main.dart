@@ -51,6 +51,7 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+        fontFamily: 'JetbrainsMono',
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
@@ -64,6 +65,7 @@ class MainApp extends StatelessWidget {
             borderRadius: BorderRadius.circular(12),
           ),
         ),
+        fontFamily: 'JetbrainsMono',
       ),
       themeMode: ThemeMode.system,
       home: ViewerScreen(initialImagePath: initialImagePath),

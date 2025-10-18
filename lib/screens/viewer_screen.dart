@@ -107,20 +107,20 @@ class _ViewerScreenState extends State<ViewerScreen> {
             windowManager.startDragging();
           },
           child: AppBar(
-            title: const Text('Editt - Photo Viewer'),
+            title: const Text('Editt'),
             actions: [
               IconButton(
-                icon: const Icon(Icons.folder_open),
+                icon: const Icon(Icons.folder_open, size: 12),
                 onPressed: _pickImage,
                 tooltip: 'Open Image',
               ),
               IconButton(
-                icon: const Icon(Icons.remove),
+                icon: const Icon(Icons.remove, size: 12),
                 onPressed: () => windowManager.minimize(),
                 tooltip: 'Minimize',
               ),
               IconButton(
-                icon: const Icon(Icons.crop_square),
+                icon: const Icon(Icons.crop_square, size: 12),
                 onPressed: () async {
                   if (await windowManager.isMaximized()) {
                     windowManager.unmaximize();
@@ -131,7 +131,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
                 tooltip: 'Maximize/Restore',
               ),
               IconButton(
-                icon: const Icon(Icons.close),
+                icon: const Icon(Icons.close, size: 12),
                 onPressed: () => windowManager.close(),
                 tooltip: 'Close',
               ),
