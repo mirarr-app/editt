@@ -1,19 +1,22 @@
 import 'dart:io';
-import 'package:file_picker/file_picker.dart';
+import 'package:file_selector/file_selector.dart';
 import 'package:path/path.dart' as path;
 
 class FileService {
   /// Pick an image file using the file picker dialog
   static Future<File?> pickImageFile() async {
     try {
-      FilePickerResult? result = await FilePicker.platform.pickFiles(
-        type: FileType.custom,
-        allowedExtensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp'],
-        dialogTitle: 'Select an Image',
+      const XTypeGroup typeGroup = XTypeGroup(
+        label: 'Images',
+        extensions: ['jpg', 'jpeg', 'png', 'webp', 'gif', 'bmp'],
+      );
+      
+      final XFile? file = await openFile(
+        acceptedTypeGroups: [typeGroup],
       );
 
-      if (result != null && result.files.single.path != null) {
-        return File(result.files.single.path!);
+      if (file != null) {
+        return File(file.path);
       }
       return null;
     } catch (e) {
