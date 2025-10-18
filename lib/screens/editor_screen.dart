@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pro_image_editor/pro_image_editor.dart';
@@ -20,6 +21,47 @@ class _EditorScreenState extends State<EditorScreen> {
   bool _isSaving = false;
   Uint8List? _editedImageBytes;
   bool _isProcessing = false;
+  Timer? _fileCheckTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    _startFileWatcher();
+  }
+
+  @override
+  void dispose() {
+    _fileCheckTimer?.cancel();
+    super.dispose();
+  }
+
+  void _startFileWatcher() {
+    // Check if source file still exists every 3 seconds
+    _fileCheckTimer = Timer.periodic(const Duration(seconds: 3), (timer) async {
+      if (!mounted) {
+        timer.cancel();
+        return;
+      }
+
+      final exists = await widget.imageFile.exists();
+      if (!exists) {
+        timer.cancel();
+        
+        if (mounted && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Source image file has been deleted'),
+              backgroundColor: Colors.red,
+              duration: Duration(seconds: 3),
+            ),
+          );
+          
+          // Return to viewer
+          Navigator.of(context).pop();
+        }
+      }
+    });
+  }
 
   Future<void> _onEditingComplete(Uint8List editedBytes) async {
     // Store the bytes and schedule the save dialog to show after this frame

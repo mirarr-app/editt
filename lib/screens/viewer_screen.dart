@@ -162,6 +162,13 @@ class _ViewerScreenState extends State<ViewerScreen> {
     return ImageViewer(
       imageFile: _currentImage!,
       onEditPressed: _openEditor,
+      onFileDeleted: () {
+        // Handle file deletion
+        setState(() {
+          _currentImage = null;
+          _errorMessage = 'The image file was deleted';
+        });
+      },
     );
   }
 }
