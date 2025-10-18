@@ -16,6 +16,7 @@ dependencies:
   path: ^1.8.0
   desktop_drop: ^0.4.4
   window_manager: ^0.5.1
+  icons_launcher: ^3.0.3
 
 dev_dependencies:
   flutter_test:
@@ -26,6 +27,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/fonts/
+    - assets/images/
   fonts:
     - family: JetbrainsMono
       fonts:
