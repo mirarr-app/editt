@@ -1,0 +1,2396 @@
+
+---
+events:
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:12 (find_program)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_UNAME"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "uname"
+    candidate_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/bin/"
+    searched_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/uname"
+      - "/home/parsa/Work/flutterProjects/editt/bin/uname"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/uname"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/uname"
+      - "/home/parsa/.local/bin/uname"
+      - "/home/parsa/.local/share/omarchy/bin/uname"
+      - "/usr/local/sbin/uname"
+      - "/usr/local/bin/uname"
+    found: "/usr/bin/uname"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineSystem.cmake:212 (message)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      The system is: Linux - 6.17.1-arch1-1 - x86_64
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeNinjaFindMake.cmake:5 (find_program)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_MAKE_PROGRAM"
+    description: "Program used to build from build.ninja files."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ninja-build"
+      - "ninja"
+      - "samu"
+    candidate_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    searched_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/ninja-build"
+      - "/home/parsa/.cache/flutter_sdk/bin/ninja"
+      - "/home/parsa/.cache/flutter_sdk/bin/samu"
+      - "/home/parsa/Work/flutterProjects/editt/bin/ninja-build"
+      - "/home/parsa/Work/flutterProjects/editt/bin/ninja"
+      - "/home/parsa/Work/flutterProjects/editt/bin/samu"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/ninja-build"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/ninja"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/samu"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/ninja-build"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/ninja"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/samu"
+      - "/home/parsa/.local/bin/ninja-build"
+      - "/home/parsa/.local/bin/ninja"
+      - "/home/parsa/.local/bin/samu"
+      - "/home/parsa/.local/share/omarchy/bin/ninja-build"
+      - "/home/parsa/.local/share/omarchy/bin/ninja"
+      - "/home/parsa/.local/share/omarchy/bin/samu"
+      - "/usr/local/sbin/ninja-build"
+      - "/usr/local/sbin/ninja"
+      - "/usr/local/sbin/samu"
+      - "/usr/local/bin/ninja-build"
+      - "/usr/local/bin/ninja"
+      - "/usr/local/bin/samu"
+      - "/usr/bin/ninja-build"
+    found: "/usr/bin/ninja"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompiler.cmake:73 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:69 (_cmake_find_compiler)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER"
+    description: "CXX compiler"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "/usr/bin/clang++"
+    candidate_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/clang++"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:462 (find_file)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:500 (CMAKE_DETERMINE_COMPILER_ID_WRITE)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:8 (CMAKE_DETERMINE_COMPILER_ID_BUILD)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "file"
+    variable: "src_in"
+    description: "Path to a file."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "CMakeCXXCompilerId.cpp.in"
+    candidate_directories:
+      - "/usr/share/cmake/Modules/"
+    found: "/usr/share/cmake/Modules/CMakeCXXCompilerId.cpp.in"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:125 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/clang++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is Clang, found in:
+        /home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/4.1.2/CompilerIdCXX/a.out
+      
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_AR"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ar"
+      - "ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_RANLIB"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ranlib"
+      - "ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_STRIP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-strip"
+      - "strip"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-strip"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_LINKER"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "ld.lld"
+      - "ld"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/ld.lld"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_NM"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-nm"
+      - "nm"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-nm"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJDUMP"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-objdump"
+      - "objdump"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-objdump"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_OBJCOPY"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-objcopy"
+      - "objcopy"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-objcopy"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_READELF"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-readelf"
+      - "readelf"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-readelf"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_DLLTOOL"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-dlltool"
+      - "dlltool"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-dlltool"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_ADDR2LINE"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-addr2line"
+      - "addr2line"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    found: "/usr/bin/llvm-addr2line"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeFindBinUtils.cmake:238 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:206 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_TAPI"
+    description: "Path to a program."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "tapi"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    searched_directories:
+      - "/usr/bin/tapi"
+      - "/home/parsa/.cache/flutter_sdk/bin/tapi"
+      - "/home/parsa/Work/flutterProjects/editt/bin/tapi"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/tapi"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/tapi"
+      - "/home/parsa/.local/bin/tapi"
+      - "/home/parsa/.local/share/omarchy/bin/tapi"
+      - "/usr/local/sbin/tapi"
+      - "/usr/local/bin/tapi"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/tapi"
+      - "/usr/lib/jvm/default/bin/tapi"
+      - "/usr/bin/site_perl/tapi"
+      - "/usr/bin/vendor_perl/tapi"
+      - "/usr/bin/core_perl/tapi"
+    found: false
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:26 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_AR"
+    description: "LLVM archiver"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ar-20.1"
+      - "llvm-ar-20"
+      - "llvm-ar20"
+      - "llvm-ar"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    searched_directories:
+      - "/usr/bin/llvm-ar-20.1"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ar-20.1"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ar-20.1"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ar-20.1"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ar-20.1"
+      - "/home/parsa/.local/bin/llvm-ar-20.1"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ar-20.1"
+      - "/usr/local/sbin/llvm-ar-20.1"
+      - "/usr/local/bin/llvm-ar-20.1"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ar-20.1"
+      - "/usr/lib/jvm/default/bin/llvm-ar-20.1"
+      - "/usr/bin/site_perl/llvm-ar-20.1"
+      - "/usr/bin/vendor_perl/llvm-ar-20.1"
+      - "/usr/bin/core_perl/llvm-ar-20.1"
+      - "/usr/bin/llvm-ar-20"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ar-20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ar-20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ar-20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ar-20"
+      - "/home/parsa/.local/bin/llvm-ar-20"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ar-20"
+      - "/usr/local/sbin/llvm-ar-20"
+      - "/usr/local/bin/llvm-ar-20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ar-20"
+      - "/usr/lib/jvm/default/bin/llvm-ar-20"
+      - "/usr/bin/site_perl/llvm-ar-20"
+      - "/usr/bin/vendor_perl/llvm-ar-20"
+      - "/usr/bin/core_perl/llvm-ar-20"
+      - "/usr/bin/llvm-ar20"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ar20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ar20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ar20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ar20"
+      - "/home/parsa/.local/bin/llvm-ar20"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ar20"
+      - "/usr/local/sbin/llvm-ar20"
+      - "/usr/local/bin/llvm-ar20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ar20"
+      - "/usr/lib/jvm/default/bin/llvm-ar20"
+      - "/usr/bin/site_perl/llvm-ar20"
+      - "/usr/bin/vendor_perl/llvm-ar20"
+      - "/usr/bin/core_perl/llvm-ar20"
+    found: "/usr/bin/llvm-ar"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:38 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_RANLIB"
+    description: "Generate index for LLVM archive"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "llvm-ranlib-20.1"
+      - "llvm-ranlib-20"
+      - "llvm-ranlib20"
+      - "llvm-ranlib"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    searched_directories:
+      - "/usr/bin/llvm-ranlib-20.1"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ranlib-20.1"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ranlib-20.1"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ranlib-20.1"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ranlib-20.1"
+      - "/home/parsa/.local/bin/llvm-ranlib-20.1"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ranlib-20.1"
+      - "/usr/local/sbin/llvm-ranlib-20.1"
+      - "/usr/local/bin/llvm-ranlib-20.1"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ranlib-20.1"
+      - "/usr/lib/jvm/default/bin/llvm-ranlib-20.1"
+      - "/usr/bin/site_perl/llvm-ranlib-20.1"
+      - "/usr/bin/vendor_perl/llvm-ranlib-20.1"
+      - "/usr/bin/core_perl/llvm-ranlib-20.1"
+      - "/usr/bin/llvm-ranlib-20"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ranlib-20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ranlib-20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ranlib-20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ranlib-20"
+      - "/home/parsa/.local/bin/llvm-ranlib-20"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ranlib-20"
+      - "/usr/local/sbin/llvm-ranlib-20"
+      - "/usr/local/bin/llvm-ranlib-20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ranlib-20"
+      - "/usr/lib/jvm/default/bin/llvm-ranlib-20"
+      - "/usr/bin/site_perl/llvm-ranlib-20"
+      - "/usr/bin/vendor_perl/llvm-ranlib-20"
+      - "/usr/bin/core_perl/llvm-ranlib-20"
+      - "/usr/bin/llvm-ranlib20"
+      - "/home/parsa/.cache/flutter_sdk/bin/llvm-ranlib20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/llvm-ranlib20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/llvm-ranlib20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/llvm-ranlib20"
+      - "/home/parsa/.local/bin/llvm-ranlib20"
+      - "/home/parsa/.local/share/omarchy/bin/llvm-ranlib20"
+      - "/usr/local/sbin/llvm-ranlib20"
+      - "/usr/local/bin/llvm-ranlib20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/llvm-ranlib20"
+      - "/usr/lib/jvm/default/bin/llvm-ranlib20"
+      - "/usr/bin/site_perl/llvm-ranlib20"
+      - "/usr/bin/vendor_perl/llvm-ranlib20"
+      - "/usr/bin/core_perl/llvm-ranlib20"
+    found: "/usr/bin/llvm-ranlib"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Compiler/Clang-FindBinUtils.cmake:50 (find_program)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:207 (include)"
+      - "CMakeLists.txt:3 (project)"
+    mode: "program"
+    variable: "CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS"
+    description: "`clang-scan-deps` dependency scanner"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: false
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: false
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "clang-scan-deps-20.1"
+      - "clang-scan-deps-20"
+      - "clang-scan-deps20"
+      - "clang-scan-deps"
+    candidate_directories:
+      - "/usr/bin/"
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+    searched_directories:
+      - "/usr/bin/clang-scan-deps-20.1"
+      - "/home/parsa/.cache/flutter_sdk/bin/clang-scan-deps-20.1"
+      - "/home/parsa/Work/flutterProjects/editt/bin/clang-scan-deps-20.1"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/clang-scan-deps-20.1"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/clang-scan-deps-20.1"
+      - "/home/parsa/.local/bin/clang-scan-deps-20.1"
+      - "/home/parsa/.local/share/omarchy/bin/clang-scan-deps-20.1"
+      - "/usr/local/sbin/clang-scan-deps-20.1"
+      - "/usr/local/bin/clang-scan-deps-20.1"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/clang-scan-deps-20.1"
+      - "/usr/lib/jvm/default/bin/clang-scan-deps-20.1"
+      - "/usr/bin/site_perl/clang-scan-deps-20.1"
+      - "/usr/bin/vendor_perl/clang-scan-deps-20.1"
+      - "/usr/bin/core_perl/clang-scan-deps-20.1"
+      - "/usr/bin/clang-scan-deps-20"
+      - "/home/parsa/.cache/flutter_sdk/bin/clang-scan-deps-20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/clang-scan-deps-20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/clang-scan-deps-20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/clang-scan-deps-20"
+      - "/home/parsa/.local/bin/clang-scan-deps-20"
+      - "/home/parsa/.local/share/omarchy/bin/clang-scan-deps-20"
+      - "/usr/local/sbin/clang-scan-deps-20"
+      - "/usr/local/bin/clang-scan-deps-20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/clang-scan-deps-20"
+      - "/usr/lib/jvm/default/bin/clang-scan-deps-20"
+      - "/usr/bin/site_perl/clang-scan-deps-20"
+      - "/usr/bin/vendor_perl/clang-scan-deps-20"
+      - "/usr/bin/core_perl/clang-scan-deps-20"
+      - "/usr/bin/clang-scan-deps20"
+      - "/home/parsa/.cache/flutter_sdk/bin/clang-scan-deps20"
+      - "/home/parsa/Work/flutterProjects/editt/bin/clang-scan-deps20"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/clang-scan-deps20"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/clang-scan-deps20"
+      - "/home/parsa/.local/bin/clang-scan-deps20"
+      - "/home/parsa/.local/share/omarchy/bin/clang-scan-deps20"
+      - "/usr/local/sbin/clang-scan-deps20"
+      - "/usr/local/bin/clang-scan-deps20"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/clang-scan-deps20"
+      - "/usr/lib/jvm/default/bin/clang-scan-deps20"
+      - "/usr/bin/site_perl/clang-scan-deps20"
+      - "/usr/bin/vendor_perl/clang-scan-deps20"
+      - "/usr/bin/core_perl/clang-scan-deps20"
+    found: "/usr/bin/clang-scan-deps"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:83 (try_compile)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc"
+      binary: "/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "/usr/bin/clang-scan-deps"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc'
+        
+        Run Build Command(s): /usr/bin/ninja -v cmTC_1c71d
+        [1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang version 20.1.8
+        Target: x86_64-pc-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/bin
+        Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-pc-linux-gnu/15.2.1
+        Found candidate GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1
+        Selected GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1
+        Candidate multilib: .;@m64
+        Candidate multilib: 32;@m32
+        Selected multilib: .;@m64
+         (in-process)
+         "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc -v -fcoverage-compilation-dir=/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc -resource-dir /usr/lib/clang/20 -dependency-file CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/20/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 20.1.8 based upon LLVM 20.1.8 default target x86_64-pc-linux-gnu
+        ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"
+        ignoring nonexistent directory "/include"
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1
+         /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu
+         /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward
+         /usr/lib/clang/20/include
+         /usr/local/include
+         /usr/include
+        End of search list.
+        [2/2] : && /usr/bin/clang++  -v -Wl,-v CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_1c71d   && :
+        clang version 20.1.8
+        Target: x86_64-pc-linux-gnu
+        Thread model: posix
+        InstalledDir: /usr/bin
+        Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-pc-linux-gnu/15.2.1
+        Found candidate GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1
+        Selected GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1
+        Candidate multilib: .;@m64
+        Candidate multilib: 32;@m32
+        Selected multilib: .;@m64
+         "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1c71d /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o
+        GNU ld (GNU Binutils) 2.45.0
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:217 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1]
+          add: [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu]
+          add: [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward]
+          add: [/usr/lib/clang/20/include]
+          add: [/usr/local/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1] ==> [/usr/include/c++/15.2.1]
+        collapse include dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu] ==> [/usr/include/c++/15.2.1/x86_64-pc-linux-gnu]
+        collapse include dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward] ==> [/usr/include/c++/15.2.1/backward]
+        collapse include dir [/usr/lib/clang/20/include] ==> [/usr/lib/clang/20/include]
+        collapse include dir [/usr/local/include] ==> [/usr/local/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/include/c++/15.2.1;/usr/include/c++/15.2.1/x86_64-pc-linux-gnu;/usr/include/c++/15.2.1/backward;/usr/lib/clang/20/include;/usr/local/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:253 (message)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(|\\.[a-rt-z][a-z]*|\\.s[a-np-z][a-z]*|\\.so[a-z]+)))("|,| |$)]
+        ignore line: [Change Dir: '/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/bin/ninja -v cmTC_1c71d]
+        ignore line: [[1/2] /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -c /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang version 20.1.8]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        ignore line: [Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Found candidate GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Selected GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Candidate multilib: 32]
+        ignore line: [@m32]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        ignore line: [ (in-process)]
+        ignore line: [ "/usr/bin/clang++" -cc1 -triple x86_64-pc-linux-gnu -emit-obj -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model pic -pic-level 2 -pic-is-pie -mframe-pointer=all -fmath-errno -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -debugger-tuning=gdb -fdebug-compilation-dir=/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc -v -fcoverage-compilation-dir=/home/parsa/Work/flutterProjects/editt/build/linux/x64/debug/CMakeFiles/CMakeScratch/TryCompile-VuVPWc -resource-dir /usr/lib/clang/20 -dependency-file CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1 -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward -internal-isystem /usr/lib/clang/20/include -internal-isystem /usr/local/include -internal-isystem /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include -internal-externc-isystem /include -internal-externc-isystem /usr/include -fdeprecated-macro -ferror-limit 19 -stack-protector 2 -fgnuc-version=4.2.1 -fskip-odr-check-in-gmf -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 20.1.8 based upon LLVM 20.1.8 default target x86_64-pc-linux-gnu]
+        ignore line: [ignoring nonexistent directory "/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../x86_64-pc-linux-gnu/include"]
+        ignore line: [ignoring nonexistent directory "/include"]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1]
+        ignore line: [ /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/x86_64-pc-linux-gnu]
+        ignore line: [ /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../include/c++/15.2.1/backward]
+        ignore line: [ /usr/lib/clang/20/include]
+        ignore line: [ /usr/local/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [[2/2] : && /usr/bin/clang++  -v -Wl -v CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_1c71d   && :]
+        ignore line: [clang version 20.1.8]
+        ignore line: [Target: x86_64-pc-linux-gnu]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        ignore line: [Found candidate GCC installation: /usr/bin/../lib/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Found candidate GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Selected GCC installation: /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+        ignore line: [Candidate multilib: .]
+        ignore line: [@m64]
+        ignore line: [Candidate multilib: 32]
+        ignore line: [@m32]
+        ignore line: [Selected multilib: .]
+        ignore line: [@m64]
+        link line: [ "/usr/bin/ld" --hash-style=gnu --build-id --eh-frame-hdr -m elf_x86_64 -pie -dynamic-linker /lib64/ld-linux-x86-64.so.2 -o cmTC_1c71d /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1 -L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64 -L/lib -L/usr/lib -v CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc_s -lgcc -lc -lgcc_s -lgcc /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o /usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
+          arg [/usr/bin/ld] ==> ignore
+          arg [--hash-style=gnu] ==> ignore
+          arg [--build-id] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-m] ==> ignore
+          arg [elf_x86_64] ==> ignore
+          arg [-pie] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/lib64/ld-linux-x86-64.so.2] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_1c71d] ==> ignore
+          arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o]
+          arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o]
+          arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o]
+          arg [-L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1] ==> dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+          arg [-L/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64] ==> dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64]
+          arg [-L/lib/../lib64] ==> dir [/lib/../lib64]
+          arg [-L/usr/lib/../lib64] ==> dir [/usr/lib/../lib64]
+          arg [-L/lib] ==> dir [/lib]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [-v] ==> ignore
+          arg [CMakeFiles/cmTC_1c71d.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lstdc++] ==> lib [stdc++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [-lc] ==> lib [c]
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [-lgcc] ==> lib [gcc]
+          arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o]
+          arg [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o] ==> obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o]
+        linker tool for 'CXX': /usr/bin/ld
+        collapse obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/Scrt1.o] ==> [/usr/lib64/Scrt1.o]
+        collapse obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crti.o] ==> [/usr/lib64/crti.o]
+        collapse obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o] ==> [/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o]
+        collapse obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o] ==> [/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o]
+        collapse obj [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64/crtn.o] ==> [/usr/lib64/crtn.o]
+        collapse library dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1] ==> [/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1]
+        collapse library dir [/usr/bin/../lib64/gcc/x86_64-pc-linux-gnu/15.2.1/../../../../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib/../lib64] ==> [/lib64]
+        collapse library dir [/usr/lib/../lib64] ==> [/usr/lib64]
+        collapse library dir [/lib] ==> [/lib]
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [stdc++;m;gcc_s;gcc;c;gcc_s;gcc]
+        implicit objs: [/usr/lib64/Scrt1.o;/usr/lib64/crti.o;/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtbeginS.o;/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1/crtendS.o;/usr/lib64/crtn.o]
+        implicit dirs: [/usr/lib64/gcc/x86_64-pc-linux-gnu/15.2.1;/usr/lib64;/lib64;/lib;/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:36 (message)"
+      - "/usr/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:299 (cmake_determine_linker_id)"
+      - "/usr/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:3 (project)"
+    message: |
+      Running the CXX compiler's linker: "/usr/bin/ld" "-v"
+      GNU ld (GNU Binutils) 2.45.0
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:69 (find_program)"
+      - "flutter/CMakeLists.txt:24 (find_package)"
+    mode: "program"
+    variable: "PKG_CONFIG_EXECUTABLE"
+    description: "pkg-config executable"
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pkg-config"
+      - "pkgconf"
+    candidate_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/"
+      - "/home/parsa/Work/flutterProjects/editt/bin/"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/"
+      - "/home/parsa/.local/bin/"
+      - "/home/parsa/.local/share/omarchy/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/bin/"
+      - "/usr/bin/"
+      - "/opt/android-sdk/cmdline-tools/latest/bin/"
+      - "/usr/lib/jvm/default/bin/"
+      - "/usr/bin/site_perl/"
+      - "/usr/bin/vendor_perl/"
+      - "/usr/bin/core_perl/"
+      - "/usr/local/bin/"
+      - "/usr/local/sbin/"
+      - "/usr/local/"
+      - "/usr/bin/"
+      - "/usr/sbin/"
+      - "/usr/"
+      - "/bin/"
+      - "/sbin/"
+      - "/usr/X11R6/bin/"
+      - "/usr/X11R6/sbin/"
+      - "/usr/X11R6/"
+      - "/usr/pkg/bin/"
+      - "/usr/pkg/sbin/"
+      - "/usr/pkg/"
+      - "/opt/bin/"
+      - "/opt/sbin/"
+      - "/opt/"
+    searched_directories:
+      - "/home/parsa/.cache/flutter_sdk/bin/pkg-config"
+      - "/home/parsa/.cache/flutter_sdk/bin/pkgconf"
+      - "/home/parsa/Work/flutterProjects/editt/bin/pkg-config"
+      - "/home/parsa/Work/flutterProjects/editt/bin/pkgconf"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/pkg-config"
+      - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin/pkgconf"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/pkg-config"
+      - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin/pkgconf"
+      - "/home/parsa/.local/bin/pkg-config"
+      - "/home/parsa/.local/bin/pkgconf"
+      - "/home/parsa/.local/share/omarchy/bin/pkg-config"
+      - "/home/parsa/.local/share/omarchy/bin/pkgconf"
+      - "/usr/local/sbin/pkg-config"
+      - "/usr/local/sbin/pkgconf"
+      - "/usr/local/bin/pkg-config"
+      - "/usr/local/bin/pkgconf"
+    found: "/usr/bin/pkg-config"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_gtk-3"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gtk-3"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgtk-3.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_gdk-3"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gdk-3"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgdk-3.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_z"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "z"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libz.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_pangocairo-1.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pangocairo-1.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libpangocairo-1.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_cairo-gobject"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cairo-gobject"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libcairo-gobject.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_gdk_pixbuf-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gdk_pixbuf-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgdk_pixbuf-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_atk-1.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "atk-1.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libatk-1.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_pango-1.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "pango-1.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libpango-1.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_cairo"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "cairo"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libcairo.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_harfbuzz"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "harfbuzz"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libharfbuzz.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_gio-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gio-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgio-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_gobject-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gobject-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgobject-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:25 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GTK_glib-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "glib-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libglib-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:26 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GLIB_glib-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "glib-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libglib-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:27 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GIO_gio-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gio-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgio-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:27 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GIO_gobject-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "gobject-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libgobject-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+  -
+    kind: "find-v1"
+    backtrace:
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:307 (find_library)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:357 (_pkg_find_libs)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:695 (_pkg_recalculate)"
+      - "/usr/share/cmake/Modules/FindPkgConfig.cmake:867 (_pkg_check_modules_internal)"
+      - "flutter/CMakeLists.txt:27 (pkg_check_modules)"
+    mode: "library"
+    variable: "pkgcfg_lib_GIO_glib-2.0"
+    description: "Path to a library."
+    settings:
+      SearchFramework: "NEVER"
+      SearchAppBundle: "NEVER"
+      CMAKE_FIND_USE_CMAKE_PATH: true
+      CMAKE_FIND_USE_CMAKE_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_SYSTEM_ENVIRONMENT_PATH: true
+      CMAKE_FIND_USE_CMAKE_SYSTEM_PATH: true
+      CMAKE_FIND_USE_INSTALL_PREFIX: true
+    names:
+      - "glib-2.0"
+    candidate_directories:
+      - "/usr/lib/"
+    found: "/usr/lib/libglib-2.0.so"
+    search_context:
+      ENV{PATH}:
+        - "/home/parsa/.cache/flutter_sdk/bin"
+        - "/home/parsa/Work/flutterProjects/editt/bin"
+        - "/home/parsa/.local/share/mise/installs/node/22.20.0/bin"
+        - "/home/parsa/.local/share/mise/installs/python/3.14.0/bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/../bin"
+        - "/home/parsa/.local/bin"
+        - "/home/parsa/.local/share/omarchy/bin/"
+        - "/usr/local/sbin"
+        - "/usr/local/bin"
+        - "/usr/bin"
+        - "/opt/android-sdk/cmdline-tools/latest/bin"
+        - "/usr/lib/jvm/default/bin"
+        - "/usr/bin/site_perl"
+        - "/usr/bin/vendor_perl"
+        - "/usr/bin/core_perl"
+      CMAKE_INSTALL_PREFIX: "/usr/local"
+      CMAKE_SYSTEM_PREFIX_PATH:
+        - "/usr/local"
+        - "/usr"
+        - "/"
+        - "/usr"
+        - "/usr/local"
+        - "/usr/X11R6"
+        - "/usr/pkg"
+        - "/opt"
+      CMAKE_SYSTEM_LIBRARY_PATH:
+        - "/usr/lib/X11"
+...

@@ -1,0 +1,5 @@
+---
+alwaysApply: true
+---
+
+This is a flutter application for editing photos. The app will be Linux only so Desktop layout and responsiveness should always be priority. ALWAYS follow clean code structure for flutter.
