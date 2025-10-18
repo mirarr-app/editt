@@ -11,6 +11,13 @@ A fast and feature-rich photo editing and viewing application for Linux desktop,
 - Responsive layout optimized for desktop window resizing
 - Interactive viewer with pinch-to-zoom and pan gestures
 
+### Omarchy Linux Integration
+- **Dynamic Theme Support**: Automatically adapts the app's color scheme to match your current Omarchy Linux theme
+- Reads the active theme from `omarchy-theme-current` command
+- Updates colors in real-time when you change themes (checks every 2 seconds)
+- Supports Yaru color variants: blue, red, green, yellow, purple, orange, pink, teal, cyan, indigo, lime, amber, brown, grey, magenta, sage, and olive
+- Gracefully falls back to default blue theme on non-Omarchy systems
+
 ### Image Editing
 - **Crop**: Crop images with various aspect ratio options
 - **Rotate**: Rotate images at any angle
@@ -89,7 +96,8 @@ lib/
 │   └── editor_screen.dart       # Image editing screen
 ├── services/
 │   ├── image_service.dart       # Image processing utilities
-│   └── file_service.dart        # File operations
+│   ├── file_service.dart        # File operations
+│   └── theme_service.dart       # Omarchy theme detection
 └── widgets/
     ├── image_viewer.dart        # Image display widget
     └── save_dialog.dart         # Save options dialog
