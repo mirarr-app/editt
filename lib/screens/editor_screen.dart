@@ -129,20 +129,34 @@ class _EditorScreenState extends State<EditorScreen> {
     }
   }
 
-  void _showAdvancedOptions() {
+  Future<void> _showAdvancedOptions() async {
+    // Load the original image bytes if no edits have been made yet
+    Uint8List imageBytes;
+    
     if (_editedImageBytes == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Please make some edits first'),
-        ),
-      );
-      return;
+      try {
+        imageBytes = await widget.imageFile.readAsBytes();
+      } catch (e) {
+        if (mounted && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error loading image: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+    } else {
+      imageBytes = _editedImageBytes!;
     }
+
+    if (!mounted || !context.mounted) return;
 
     showDialog(
       context: context,
       builder: (context) => _AdvancedOptionsDialog(
-        imageBytes: _editedImageBytes!,
+        imageBytes: imageBytes,
         originalPath: widget.imageFile.path,
         onSave: (processedBytes, newPath) async {
           final success = await ImageService.saveImage(
@@ -201,15 +215,16 @@ class _EditorScreenState extends State<EditorScreen> {
         // Advanced options button
         if (!_isSaving)
           Positioned(
-            top: 16,
-            right: 16,
+            bottom: 24,
+            right: 24,
             child: SafeArea(
-              child: FloatingActionButton.small(
+              child: FloatingActionButton(
                 heroTag: 'advanced_options',
-                backgroundColor: Colors.black87,
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
                 onPressed: _showAdvancedOptions,
                 tooltip: 'Advanced Options',
-                child: const Icon(Icons.settings, color: Colors.white),
+                child: const Icon(Icons.tune),
               ),
             ),
           ),
@@ -266,12 +281,19 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
   int _maxHeight = 4096;
   bool _reduceResolution = false;
   bool _isProcessing = false;
+  bool _maintainAspectRatio = true;
 
   Map<String, int>? _currentDimensions;
+  double? _aspectRatio;
+  
+  late TextEditingController _widthController;
+  late TextEditingController _heightController;
 
   @override
   void initState() {
     super.initState();
+    _widthController = TextEditingController();
+    _heightController = TextEditingController();
     _loadDimensions();
     
     // Set initial format based on original file
@@ -285,6 +307,13 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
     }
   }
 
+  @override
+  void dispose() {
+    _widthController.dispose();
+    _heightController.dispose();
+    super.dispose();
+  }
+
   Future<void> _loadDimensions() async {
     final dims = await ImageService.getImageDimensions(widget.imageBytes);
     if (mounted) {
@@ -293,9 +322,38 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
         if (dims != null) {
           _maxWidth = dims['width']!;
           _maxHeight = dims['height']!;
+          _aspectRatio = dims['width']! / dims['height']!;
+          _widthController.text = _maxWidth.toString();
+          _heightController.text = _maxHeight.toString();
         }
       });
     }
+  }
+
+  void _updateWidth(String value) {
+    final newWidth = int.tryParse(value);
+    if (newWidth == null) return;
+    
+    setState(() {
+      _maxWidth = newWidth;
+      if (_maintainAspectRatio && _aspectRatio != null) {
+        _maxHeight = (newWidth / _aspectRatio!).round();
+        _heightController.text = _maxHeight.toString();
+      }
+    });
+  }
+
+  void _updateHeight(String value) {
+    final newHeight = int.tryParse(value);
+    if (newHeight == null) return;
+    
+    setState(() {
+      _maxHeight = newHeight;
+      if (_maintainAspectRatio && _aspectRatio != null) {
+        _maxWidth = (newHeight * _aspectRatio!).round();
+        _widthController.text = _maxWidth.toString();
+      }
+    });
   }
 
   Future<void> _processAndSave() async {
@@ -462,6 +520,7 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
               if (_reduceResolution) ...[
                 const SizedBox(height: 8),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: TextField(
@@ -471,13 +530,29 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
                           isDense: true,
                         ),
                         keyboardType: TextInputType.number,
-                        controller: TextEditingController(text: _maxWidth.toString()),
-                        onChanged: (value) {
-                          _maxWidth = int.tryParse(value) ?? _maxWidth;
+                        controller: _widthController,
+                        onChanged: _updateWidth,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: IconButton(
+                        icon: Icon(
+                          _maintainAspectRatio ? Icons.link : Icons.link_off,
+                          color: _maintainAspectRatio 
+                            ? Theme.of(context).colorScheme.primary 
+                            : Colors.grey,
+                        ),
+                        tooltip: _maintainAspectRatio 
+                          ? 'Maintain aspect ratio' 
+                          : 'Independent dimensions',
+                        onPressed: () {
+                          setState(() {
+                            _maintainAspectRatio = !_maintainAspectRatio;
+                          });
                         },
                       ),
                     ),
-                    const SizedBox(width: 16),
                     Expanded(
                       child: TextField(
                         decoration: const InputDecoration(
@@ -486,10 +561,8 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
                           isDense: true,
                         ),
                         keyboardType: TextInputType.number,
-                        controller: TextEditingController(text: _maxHeight.toString()),
-                        onChanged: (value) {
-                          _maxHeight = int.tryParse(value) ?? _maxHeight;
-                        },
+                        controller: _heightController,
+                        onChanged: _updateHeight,
                       ),
                     ),
                   ],
