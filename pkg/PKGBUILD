@@ -4,13 +4,13 @@ pkgver=0.0.1
 pkgrel=1
 pkgdesc="A Flutter-based image view and editor app for linux"
 arch=('x86_64')
-url="https://github.com/editt-app/editt"
+url="https://github.com/mirarr-app/editt"
 license=('MIT')
 depends=('gtk3')
 provides=('editt')
 conflicts=('editt')
 
-source=("$pkgname-$pkgver.zip::https://github.com/editt-app/editt/releases/download/$pkgver/editt.zip")
+source=("$pkgname-$pkgver.zip::https://github.com/mirarr-app/editt/releases/download/$pkgver/editt.zip")
 sha256sums=('SKIP')
 
 package() {
