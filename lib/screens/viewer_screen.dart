@@ -107,7 +107,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
             windowManager.startDragging();
           },
           child: AppBar(
-            title: const Text('Editt'),
+            title: const Text('Editt', style: TextStyle(fontFamily: 'JetbrainsMono')),
             actions: [
               IconButton(
                 icon: const Icon(Icons.folder_open, size: 12),

@@ -1,6 +1,8 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'screens/viewer_screen.dart';
+import 'services/theme_service.dart';
 
 void main(List<String> args) async {
   // Ensure Flutter binding is initialized
@@ -29,10 +31,46 @@ void main(List<String> args) async {
   runApp(MainApp(initialImagePath: initialImagePath));
 }
 
-class MainApp extends StatelessWidget {
+class MainApp extends StatefulWidget {
   final String? initialImagePath;
 
   const MainApp({super.key, this.initialImagePath});
+
+  @override
+  State<MainApp> createState() => _MainAppState();
+}
+
+class _MainAppState extends State<MainApp> {
+  Color _seedColor = Colors.blue;
+  Timer? _themeTimer;
+
+  @override
+  void initState() {
+    super.initState();
+    // Initial theme color fetch
+    _updateThemeColor();
+    
+    // Start periodic timer to check theme every 3 seconds
+    _themeTimer = Timer.periodic(
+      const Duration(seconds: 2),
+      (_) => _updateThemeColor(),
+    );
+  }
+
+  @override
+  void dispose() {
+    _themeTimer?.cancel();
+    super.dispose();
+  }
+
+  Future<void> _updateThemeColor() async {
+    final newColor = await ThemeService.getOmarchyThemeColor();
+    if (mounted && newColor != _seedColor) {
+      setState(() {
+        _seedColor = newColor;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +80,7 @@ class MainApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: _seedColor,
           brightness: Brightness.light,
         ),
         cardTheme: CardThemeData(
@@ -56,7 +94,7 @@ class MainApp extends StatelessWidget {
       darkTheme: ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
-          seedColor: Colors.blue,
+          seedColor: _seedColor,
           brightness: Brightness.dark,
         ),
         cardTheme: CardThemeData(
@@ -68,7 +106,7 @@ class MainApp extends StatelessWidget {
         fontFamily: 'JetbrainsMono',
       ),
       themeMode: ThemeMode.system,
-      home: ViewerScreen(initialImagePath: initialImagePath),
+      home: ViewerScreen(initialImagePath: widget.initialImagePath),
     );
   }
 }
