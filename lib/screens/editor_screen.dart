@@ -19,27 +19,53 @@ class EditorScreen extends StatefulWidget {
 class _EditorScreenState extends State<EditorScreen> {
   bool _isSaving = false;
   Uint8List? _editedImageBytes;
+  bool _isProcessing = false;
 
-  Future<void> _handleSave(Uint8List editedBytes) async {
-    setState(() {
-      _editedImageBytes = editedBytes;
+  Future<void> _onEditingComplete(Uint8List editedBytes) async {
+    // Store the bytes and schedule the save dialog to show after this frame
+    _editedImageBytes = editedBytes;
+    
+    // Use addPostFrameCallback to ensure ProImageEditor's loading dialog closes first
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted && context.mounted && !_isProcessing) {
+        _showSaveDialogAndSave(editedBytes);
+      }
     });
+  }
 
-    // Show the save dialog
-    final result = await showSaveDialog(
-      context: context,
-      originalFilePath: widget.imageFile.path,
-    );
-
-    if (result == null || result['option'] == SaveOption.cancel) {
-      return;
-    }
-
+  Future<void> _showSaveDialogAndSave(Uint8List editedBytes) async {
+    if (!mounted || _isProcessing) return;
+    
     setState(() {
-      _isSaving = true;
+      _isProcessing = true;
     });
-
+    
     try {
+      // Show the save dialog
+      final result = await showSaveDialog(
+        context: context,
+        originalFilePath: widget.imageFile.path,
+      );
+
+      // User cancelled
+      if (!mounted) {
+        setState(() {
+          _isProcessing = false;
+        });
+        return;
+      }
+      
+      if (result == null || result['option'] == SaveOption.cancel) {
+        setState(() {
+          _isProcessing = false;
+        });
+        return;
+      }
+
+      setState(() {
+        _isSaving = true;
+      });
+
       String savePath;
 
       if (result['option'] == SaveOption.overwrite) {
@@ -56,36 +82,43 @@ class _EditorScreenState extends State<EditorScreen> {
         filePath: savePath,
       );
 
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-        });
+      if (!mounted) return;
+      
+      setState(() {
+        _isSaving = false;
+        _isProcessing = false;
+      });
 
-        if (success) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Image saved successfully to ${path.basename(savePath)}'),
-              backgroundColor: Colors.green,
-            ),
-          );
+      if (!mounted || !context.mounted) return;
 
-          // Return the saved file to the viewer
-          Navigator.of(context).pop(File(savePath));
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Failed to save image'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
+      if (success) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Image saved successfully to ${path.basename(savePath)}'),
+            backgroundColor: Colors.green,
+            duration: const Duration(seconds: 2),
+          ),
+        );
+
+        // Return the saved file to the viewer
+        Navigator.of(context).pop(File(savePath));
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Failed to save image'),
+            backgroundColor: Colors.red,
+          ),
+        );
       }
     } catch (e) {
-      if (mounted) {
-        setState(() {
-          _isSaving = false;
-        });
+      if (!mounted) return;
+      
+      setState(() {
+        _isSaving = false;
+        _isProcessing = false;
+      });
 
+      if (context.mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Error saving image: $e'),
@@ -117,7 +150,7 @@ class _EditorScreenState extends State<EditorScreen> {
             filePath: newPath,
           );
 
-          if (mounted) {
+          if (mounted && context.mounted) {
             if (success) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -142,57 +175,71 @@ class _EditorScreenState extends State<EditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (_isSaving) {
-      return Scaffold(
-        backgroundColor: Colors.black,
-        body: Container(
-          color: Colors.black54,
-          child: const Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CircularProgressIndicator(),
-                SizedBox(height: 16),
-                Text(
-                  'Saving image...',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-    }
-
-    return Stack(
-      children: [
-        ProImageEditor.file(
-          widget.imageFile,
+    return PopScope(
+      canPop: !_isSaving,
+      onPopInvokedWithResult: (didPop, result) async {
+        // Prevent back navigation during save
+        if (_isSaving) {
+          return;
+        }
+      },
+      child: Stack(
+        children: [
+          ProImageEditor.file(
+            widget.imageFile,
           callbacks: ProImageEditorCallbacks(
-            onImageEditingComplete: (bytes) async {
-              await _handleSave(bytes);
-            },
+            onImageEditingComplete: _onEditingComplete,
             onCloseEditor: (editorMode) {
-              Navigator.of(context).pop();
+              // Don't close if we're in the middle of saving
+              if (!_isSaving && mounted && context.mounted) {
+                Navigator.of(context).pop();
+              }
             },
           ),
-          configs: const ProImageEditorConfigs(),
-        ),
+            configs: ProImageEditorConfigs(),
+          ),
         // Advanced options button
-        Positioned(
-          top: 16,
-          right: 16,
-          child: SafeArea(
-            child: FloatingActionButton.small(
-              heroTag: 'advanced_options',
-              backgroundColor: Colors.black87,
-              onPressed: _showAdvancedOptions,
-              tooltip: 'Advanced Options',
-              child: const Icon(Icons.settings, color: Colors.white),
+        if (!_isSaving)
+          Positioned(
+            top: 16,
+            right: 16,
+            child: SafeArea(
+              child: FloatingActionButton.small(
+                heroTag: 'advanced_options',
+                backgroundColor: Colors.black87,
+                onPressed: _showAdvancedOptions,
+                tooltip: 'Advanced Options',
+                child: const Icon(Icons.settings, color: Colors.white),
+              ),
             ),
           ),
-        ),
-      ],
+          // Saving overlay
+          if (_isSaving)
+            Positioned.fill(
+              child: Container(
+                color: Colors.black54,
+                child: PopScope(
+                  canPop: false,
+                  child: const Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CircularProgressIndicator(
+                          color: Colors.white,
+                        ),
+                        SizedBox(height: 16),
+                        Text(
+                          'Saving image...',
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+            ),
+        ],
+      ),
     );
   }
 }
@@ -311,7 +358,9 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
       _isProcessing = false;
     });
 
-    Navigator.of(context).pop();
+    if (mounted && context.mounted) {
+      Navigator.of(context).pop();
+    }
     widget.onSave(processedBytes, newPath);
   }
 

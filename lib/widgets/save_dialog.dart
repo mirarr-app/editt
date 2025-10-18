@@ -150,9 +150,22 @@ Future<Map<String, dynamic>?> showSaveDialog({
 }) async {
   return await showDialog<Map<String, dynamic>>(
     context: context,
-    builder: (context) => SaveDialog(
-      originalFilePath: originalFilePath,
-      suggestedExtension: suggestedExtension,
+    barrierDismissible: false,
+    builder: (context) => PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) {
+          // If trying to pop without selecting an option, treat as cancel
+          Navigator.of(context).pop({
+            'option': SaveOption.cancel,
+            'filename': null,
+          });
+        }
+      },
+      child: SaveDialog(
+        originalFilePath: originalFilePath,
+        suggestedExtension: suggestedExtension,
+      ),
     ),
   );
 }
