@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:typed_data';
+import 'package:flutter/foundation.dart';
 import 'package:image/image.dart' as img;
 
 enum ImageFormat { jpg, png, webp }
@@ -14,7 +15,9 @@ class ImageService {
       }
       return null;
     } catch (e) {
-      print('Error loading image: $e');
+      if (kDebugMode) {
+        debugPrint('Error loading image: $e');
+      }
       return null;
     }
   }
@@ -40,7 +43,9 @@ class ImageService {
           return Uint8List.fromList(img.encodeJpg(image, quality: quality));
       }
     } catch (e) {
-      print('Error converting format: $e');
+      if (kDebugMode) {
+        debugPrint('Error converting format: $e');
+      }
       return null;
     }
   }
@@ -79,7 +84,9 @@ class ImageService {
       // Encode back to original format (or JPEG for smaller size)
       return Uint8List.fromList(img.encodeJpg(resized, quality: 90));
     } catch (e) {
-      print('Error reducing resolution: $e');
+      if (kDebugMode) {
+        debugPrint('Error reducing resolution: $e');
+      }
       return null;
     }
   }
@@ -96,7 +103,9 @@ class ImageService {
       // Re-encode with lower quality
       return Uint8List.fromList(img.encodeJpg(image, quality: quality));
     } catch (e) {
-      print('Error reducing file size: $e');
+      if (kDebugMode) {
+        debugPrint('Error reducing file size: $e');
+      }
       return null;
     }
   }
@@ -111,7 +120,9 @@ class ImageService {
       await file.writeAsBytes(imageBytes);
       return true;
     } catch (e) {
-      print('Error saving image: $e');
+      if (kDebugMode) {
+        debugPrint('Error saving image: $e');
+      }
       return false;
     }
   }
@@ -127,7 +138,9 @@ class ImageService {
         'height': image.height,
       };
     } catch (e) {
-      print('Error getting image dimensions: $e');
+      if (kDebugMode) {
+        debugPrint('Error getting image dimensions: $e');
+      }
       return null;
     }
   }
@@ -138,7 +151,9 @@ class ImageService {
       final file = File(filePath);
       return await file.length();
     } catch (e) {
-      print('Error getting file size: $e');
+      if (kDebugMode) {
+        debugPrint('Error getting file size: $e');
+      }
       return 0;
     }
   }

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:file_selector/file_selector.dart';
+import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 
 class FileService {
@@ -20,7 +21,9 @@ class FileService {
       }
       return null;
     } catch (e) {
-      print('Error picking file: $e');
+      if (kDebugMode) {
+        debugPrint('Error picking file: $e');
+      }
       return null;
     }
   }
