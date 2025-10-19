@@ -73,7 +73,6 @@ A photo editing and viewing application for Linux desktop that looks CLEAN!
 
 ### Prerequisites
 - Flutter SDK (3.5.3 or higher)
-- Linux desktop environment
 
 ### Setup
 1. Clone the repository
@@ -99,13 +98,9 @@ A photo editing and viewing application for Linux desktop that looks CLEAN!
 #### Method 2: Command Line
 You can open an image directly from the command line:
 ```bash
-flutter run -d linux imagename.jpg
+editt imagename.jpg
 ```
 
-Or after building:
-```bash
-./build/linux/x64/release/bundle/editt /path/to/image.jpg
-```
 
 ### Editing Images
 
@@ -147,17 +142,6 @@ lib/
 - `path_provider` - File path handling
 - `path` - Path utilities
 
-## Building for Release
-
-To build a release version:
-```bash
-flutter build linux --release
-```
-
-The executable will be located at:
-```
-build/linux/x64/release/bundle/editt
-```
 
 ## License
 
