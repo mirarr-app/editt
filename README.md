@@ -27,10 +27,26 @@ A fast and feature-rich photo editing and viewing application for Linux desktop,
 
 ### Omarchy Linux Integration
 - **Dynamic Theme Support**: Automatically adapts the app's color scheme to match your current Omarchy Linux theme
-- Reads the active theme from `omarchy-theme-current` command
-- Updates colors in real-time when you change themes (checks every 2 seconds)
-- Supports Yaru color variants: blue, red, green, yellow, purple, orange, pink, teal, cyan, indigo, lime, amber, brown, grey, magenta, sage, and olive
-- Gracefully falls back to default blue theme on non-Omarchy systems
+- Falls back to default blue theme on non-Omarchy systems
+
+<table>
+  <tr>
+    <td align="center" width="300">
+      <video 
+        src="https://github.com/user-attachments/assets/59dc0b6c-59a5-42ee-bb6c-759dcf1dcfa3" 
+        controls 
+        style="max-width:100%;">
+      </video>
+    </td>
+  </tr>
+  <tr>
+    <td align="center">
+      <em>Video may be compressed by GitHub</em>
+    </td>
+  </tr>
+</table>
+
+
 
 ### Image Editing
 - **Crop**: Crop images with various aspect ratio options
