@@ -7,7 +7,11 @@ A photo editing and viewing application for Linux desktop that looks CLEAN!
 
 <a href="https://github.com/mirarr-app/editt/releases"><img src="https://raw.githubusercontent.com/NeoApplications/Neo-Backup/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" width="200"></a> 
 
+## Install from AUR
 
+```bash
+yay -S editt-bin
+```
 
 ## Screenshots
 
