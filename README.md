@@ -3,6 +3,21 @@
 
 A fast and feature-rich photo editing and viewing application for Linux desktop, built with Flutter.
 
+
+
+
+## Screenshots
+
+|                     Image Selection                      |                     Editing                      |
+| :--------------------------------------------------: | :------------------------------------------------------: |
+| ![editt image selection](https://github.com/user-attachments/assets/1bfc71df-2eea-4d3a-ae65-6f10bfba50aa) | ![editt editing](https://github.com/user-attachments/assets/26b3f2c9-87bd-4d15-937e-0862f545f5f9) |
+|                     Filters                      |                     Saving                      |
+| :--------------------------------------------------: | :------------------------------------------------------: |
+| ![edit filters](https://github.com/user-attachments/assets/b93042d4-d60d-4cfb-9669-1e3e661e3a6e) | ![editt saving](https://github.com/user-attachments/assets/cd67c733-88d4-4ecf-8b05-8c680ef083fc) |
+
+
+
+
 ## Features
 
 ### Image Viewing
