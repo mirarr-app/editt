@@ -33,7 +33,7 @@ A fast and feature-rich photo editing and viewing application for Linux desktop,
   <tr>
     <td align="center" width="300">
       <video 
-        src="https://github.com/user-attachments/assets/59dc0b6c-59a5-42ee-bb6c-759dcf1dcfa3" 
+        src="https://github.com/user-attachments/assets/749d36fc-3a61-4462-ad6f-0cdd327ca73f" 
         controls 
         style="max-width:100%;">
       </video>
@@ -45,6 +45,9 @@ A fast and feature-rich photo editing and viewing application for Linux desktop,
     </td>
   </tr>
 </table>
+
+
+
 
 
 
