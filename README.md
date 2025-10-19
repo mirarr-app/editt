@@ -3,6 +3,9 @@
 
 A fast and feature-rich photo editing and viewing application for Linux desktop, built with Flutter.
 
+<h4>Download</h4>  
+
+<a href="https://github.com/mirarr-app/editt/releases"><img src="https://raw.githubusercontent.com/NeoApplications/Neo-Backup/034b226cea5c1b30eb4f6a6f313e4dadcbb0ece4/badge_github.png" width="200"></a> 
 
 
 
@@ -66,7 +69,7 @@ A fast and feature-rich photo editing and viewing application for Linux desktop,
 - **Quality Adjustment**: Lower image quality to reduce file size
 - **Save Options**: Choose to save as a new file or overwrite the original
 
-## Installation
+## Building
 
 ### Prerequisites
 - Flutter SDK (3.5.3 or higher)
