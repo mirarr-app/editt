@@ -264,7 +264,7 @@ class _EditorScreenState extends State<EditorScreen> {
               }
             },
           ),
-            configs: ProImageEditorConfigs(),
+            configs: const ProImageEditorConfigs(),
           ),
         // Advanced options button
         if (!_isSaving)
@@ -287,9 +287,9 @@ class _EditorScreenState extends State<EditorScreen> {
             Positioned.fill(
               child: Container(
                 color: Colors.black54,
-                child: PopScope(
+                child: const PopScope(
                   canPop: false,
-                  child: const Center(
+                  child: Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
