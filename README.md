@@ -1,7 +1,7 @@
 
 # Editt - Photo Editor & Viewer
 
-A fast and feature-rich photo editing and viewing application for Linux desktop, built with Flutter.
+A photo editing and viewing application for Linux desktop that looks CLEAN!
 
 <h4>Download</h4>  
 
