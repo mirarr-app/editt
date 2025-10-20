@@ -278,7 +278,7 @@ class _EditorScreenState extends State<EditorScreen> {
                 foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
                 onPressed: _showAdvancedOptions,
                 tooltip: 'Advanced Options',
-                child: const Icon(Icons.tune),
+                child: const Icon(Icons.save),
               ),
             ),
           ),
