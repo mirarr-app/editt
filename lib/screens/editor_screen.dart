@@ -23,6 +23,7 @@ class _EditorScreenState extends State<EditorScreen> {
   Uint8List? _editedImageBytes;
   bool _isProcessing = false;
   Timer? _fileCheckTimer;
+  int _editorVersion = 0;
 
   @override
   void initState() {
@@ -271,29 +272,20 @@ class _EditorScreenState extends State<EditorScreen> {
       builder: (context) => CutoutDialog(
         imageBytes: imageBytes,
         originalPath: widget.imageFile.path,
-        onSave: (processedBytes, newPath) async {
-          final success = await ImageService.saveImage(
-            imageBytes: processedBytes,
-            filePath: newPath,
-          );
-
+        onApply: (processedBytes) {
+          // Apply the cutout and continue editing
+          setState(() {
+            _editedImageBytes = processedBytes;
+            _editorVersion++;
+          });
+          
           if (mounted && context.mounted) {
-            if (success) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text('Cutout saved to ${path.basename(newPath)}'),
-                  backgroundColor: Colors.green,
-                ),
-              );
-              Navigator.of(context).pop(File(newPath));
-            } else {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Failed to save cutout'),
-                  backgroundColor: Colors.red,
-                ),
-              );
-            }
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Cutout applied successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
           }
         },
       ),
@@ -312,19 +304,35 @@ class _EditorScreenState extends State<EditorScreen> {
       },
       child: Stack(
         children: [
-          ProImageEditor.file(
-            widget.imageFile,
-          callbacks: ProImageEditorCallbacks(
-            onImageEditingComplete: _onEditingComplete,
-            onCloseEditor: (editorMode) {
-              // Don't close if we're in the middle of saving
-              if (!_isSaving && mounted && context.mounted) {
-                Navigator.of(context).pop();
-              }
-            },
-          ),
-            configs: const ProImageEditorConfigs(),
-          ),
+          _editedImageBytes != null
+              ? ProImageEditor.memory(
+                  _editedImageBytes!,
+                  key: ValueKey('editor-memory-$_editorVersion'),
+                  callbacks: ProImageEditorCallbacks(
+                    onImageEditingComplete: _onEditingComplete,
+                    onCloseEditor: (editorMode) {
+                      // Don't close if we're in the middle of saving
+                      if (!_isSaving && mounted && context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                  configs: const ProImageEditorConfigs(),
+                )
+              : ProImageEditor.file(
+                  widget.imageFile,
+                  key: ValueKey('editor-file-$_editorVersion'),
+                  callbacks: ProImageEditorCallbacks(
+                    onImageEditingComplete: _onEditingComplete,
+                    onCloseEditor: (editorMode) {
+                      // Don't close if we're in the middle of saving
+                      if (!_isSaving && mounted && context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                  ),
+                  configs: const ProImageEditorConfigs(),
+                ),
         // Tool buttons
         if (!_isSaving)
           Positioned(

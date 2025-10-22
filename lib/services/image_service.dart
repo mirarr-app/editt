@@ -178,21 +178,12 @@ class ImageService {
       final image = img.decodeImage(imageBytes);
       if (image == null) return null;
 
-      if (kDebugMode) {
-        debugPrint('Cutout: start=$startPosition, end=$endPosition, isVertical=$isVertical');
-        debugPrint('Image size: ${image.width}x${image.height}');
-      }
-
       // Convert relative positions to absolute pixel positions
       int startPixel, endPixel;
       
       if (isVertical) {
         startPixel = (startPosition * image.width).round();
         endPixel = (endPosition * image.width).round();
-        
-        if (kDebugMode) {
-          debugPrint('Vertical cutout pixels: start=$startPixel, end=$endPixel');
-        }
         
         // Ensure positions are within bounds
         startPixel = startPixel.clamp(0, image.width);
@@ -207,7 +198,6 @@ class ImageService {
         
         // Don't allow cutting the entire image
         if (startPixel == 0 && endPixel == image.width) {
-          if (kDebugMode) debugPrint('Cannot cut entire image width');
           return null;
         }
         
@@ -215,10 +205,6 @@ class ImageService {
       } else {
         startPixel = (startPosition * image.height).round();
         endPixel = (endPosition * image.height).round();
-        
-        if (kDebugMode) {
-          debugPrint('Horizontal cutout pixels: start=$startPixel, end=$endPixel');
-        }
         
         // Ensure positions are within bounds
         startPixel = startPixel.clamp(0, image.height);
@@ -233,7 +219,6 @@ class ImageService {
         
         // Don't allow cutting the entire image
         if (startPixel == 0 && endPixel == image.height) {
-          if (kDebugMode) debugPrint('Cannot cut entire image height');
           return null;
         }
         

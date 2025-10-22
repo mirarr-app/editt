@@ -5,13 +5,13 @@ import '../services/image_service.dart';
 class CutoutDialog extends StatefulWidget {
   final Uint8List imageBytes;
   final String originalPath;
-  final Function(Uint8List processedBytes, String newPath) onSave;
+  final Function(Uint8List processedBytes) onApply;
 
   const CutoutDialog({
     super.key,
     required this.imageBytes,
     required this.originalPath,
-    required this.onSave,
+    required this.onApply,
   });
 
   @override
@@ -49,8 +49,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
   Future<void> _generatePreview() async {
     if (_isGeneratingPreview) return;
     
-    print('Generating preview: start=$_startPosition, end=$_endPosition, isVertical=$_isVertical');
-    
     setState(() {
       _isGeneratingPreview = true;
     });
@@ -63,8 +61,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
         isVertical: _isVertical,
       );
 
-      print('Preview result: ${result != null ? 'success' : 'failed'}');
-
       if (mounted) {
         setState(() {
           _previewImageBytes = result;
@@ -72,7 +68,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
         });
       }
     } catch (e) {
-      print('Preview error: $e');
       if (mounted) {
         setState(() {
           _isGeneratingPreview = false;
@@ -97,8 +92,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
     }
     
     position = position.clamp(0.0, 1.0);
-    
-    print('Tap down: localPosition=${details.localPosition}, imageSize=$imageSize, position=$position, isVertical=$_isVertical');
     
     setState(() {
       _isSelecting = true;
@@ -135,9 +128,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
     final start = _selectionStart!;
     final end = _selectionEnd!;
     
-    print('Selection: start=$start, end=$end, isVertical=$_isVertical');
-    print('Selection difference: ${(end - start).abs()}');
-    
     setState(() {
       _startPosition = start < end ? start : end;
       _endPosition = start < end ? end : start;
@@ -146,7 +136,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
       _selectionEnd = null;
     });
     
-    print('Final positions: start=$_startPosition, end=$_endPosition');
     _generatePreview();
   }
 
@@ -205,12 +194,9 @@ class _CutoutDialogState extends State<CutoutDialog> {
         return;
       }
 
-      // Generate new filename
-      final newPath = _generateNewFilename();
-      
       if (mounted) {
         Navigator.of(context).pop();
-        widget.onSave(result, newPath);
+        widget.onApply(result);
       }
     } catch (e) {
       if (mounted) {
@@ -228,18 +214,6 @@ class _CutoutDialogState extends State<CutoutDialog> {
         });
       }
     }
-  }
-
-  String _generateNewFilename() {
-    final pathParts = widget.originalPath.split('/');
-    final filename = pathParts.last;
-    final nameWithoutExt = filename.split('.').first;
-    final extension = filename.split('.').last;
-    
-    return widget.originalPath.replaceFirst(
-      filename,
-      '${nameWithoutExt}_cutout.$extension',
-    );
   }
 
   @override
