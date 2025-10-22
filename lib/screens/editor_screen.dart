@@ -7,6 +7,7 @@ import 'package:path/path.dart' as path;
 import '../services/image_service.dart';
 import '../services/file_service.dart';
 import '../widgets/save_dialog.dart';
+import '../widgets/cutout_dialog.dart';
 
 class EditorScreen extends StatefulWidget {
   final File imageFile;
@@ -241,6 +242,64 @@ class _EditorScreenState extends State<EditorScreen> {
     );
   }
 
+  Future<void> _showCutoutDialog() async {
+    // Load the original image bytes if no edits have been made yet
+    Uint8List imageBytes;
+    
+    if (_editedImageBytes == null) {
+      try {
+        imageBytes = await widget.imageFile.readAsBytes();
+      } catch (e) {
+        if (mounted && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error loading image: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+    } else {
+      imageBytes = _editedImageBytes!;
+    }
+
+    if (!mounted || !context.mounted) return;
+
+    showDialog(
+      context: context,
+      builder: (context) => CutoutDialog(
+        imageBytes: imageBytes,
+        originalPath: widget.imageFile.path,
+        onSave: (processedBytes, newPath) async {
+          final success = await ImageService.saveImage(
+            imageBytes: processedBytes,
+            filePath: newPath,
+          );
+
+          if (mounted && context.mounted) {
+            if (success) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text('Cutout saved to ${path.basename(newPath)}'),
+                  backgroundColor: Colors.green,
+                ),
+              );
+              Navigator.of(context).pop(File(newPath));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Failed to save cutout'),
+                  backgroundColor: Colors.red,
+                ),
+              );
+            }
+          }
+        },
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -266,19 +325,35 @@ class _EditorScreenState extends State<EditorScreen> {
           ),
             configs: const ProImageEditorConfigs(),
           ),
-        // Advanced options button
+        // Tool buttons
         if (!_isSaving)
           Positioned(
             bottom: 24,
             right: 24,
             child: SafeArea(
-              child: FloatingActionButton(
-                heroTag: 'advanced_options',
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-                onPressed: _showAdvancedOptions,
-                tooltip: 'Advanced Options',
-                child: const Icon(Icons.save),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  // Cutout button
+                  FloatingActionButton(
+                    heroTag: 'cutout_tool',
+                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
+                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
+                    onPressed: _showCutoutDialog,
+                    tooltip: 'Cutout Tool',
+                    child: const Icon(Icons.content_cut),
+                  ),
+                  const SizedBox(height: 12),
+                  // Advanced options button
+                  FloatingActionButton(
+                    heroTag: 'advanced_options',
+                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                    foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                    onPressed: _showAdvancedOptions,
+                    tooltip: 'Advanced Options',
+                    child: const Icon(Icons.save),
+                  ),
+                ],
               ),
             ),
           ),
