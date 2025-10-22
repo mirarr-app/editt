@@ -24,6 +24,7 @@ class _EditorScreenState extends State<EditorScreen> {
   bool _isProcessing = false;
   Timer? _fileCheckTimer;
   int _editorVersion = 0;
+  bool _hasUnappliedChanges = false;
 
   @override
   void initState() {
@@ -68,6 +69,7 @@ class _EditorScreenState extends State<EditorScreen> {
   Future<void> _onEditingComplete(Uint8List editedBytes) async {
     // Store the bytes immediately
     _editedImageBytes = editedBytes;
+    _hasUnappliedChanges = false;
     
     // Small delay to let the loading dialog dismiss
     await Future.delayed(const Duration(milliseconds: 100));
@@ -244,6 +246,30 @@ class _EditorScreenState extends State<EditorScreen> {
   }
 
   Future<void> _showCutoutDialog() async {
+    // Guard: warn if there are unapplied changes in the editor
+    if (_hasUnappliedChanges) {
+      final proceed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Discard current changes?'),
+          content: const Text(
+            'You have unsaved changes in the editor. If you continue to Cutout without pressing the checkmark, these changes will be discarded.'
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      );
+      if (proceed != true) return;
+    }
+
     // Load the original image bytes if no edits have been made yet
     Uint8List imageBytes;
     
@@ -277,6 +303,7 @@ class _EditorScreenState extends State<EditorScreen> {
           setState(() {
             _editedImageBytes = processedBytes;
             _editorVersion++;
+            _hasUnappliedChanges = false;
           });
           
           if (mounted && context.mounted) {
@@ -316,6 +343,16 @@ class _EditorScreenState extends State<EditorScreen> {
                         Navigator.of(context).pop();
                       }
                     },
+                    mainEditorCallbacks: MainEditorCallbacks(
+                      onImageDecoded: () {
+                        // Freshly loaded image has no user changes yet
+                        _hasUnappliedChanges = false;
+                      },
+                      onStateHistoryChange: (stateHistory, editor) {
+                        // Mark as dirty when history changes
+                        _hasUnappliedChanges = true;
+                      },
+                    ),
                   ),
                   configs: const ProImageEditorConfigs(),
                 )
@@ -330,6 +367,14 @@ class _EditorScreenState extends State<EditorScreen> {
                         Navigator.of(context).pop();
                       }
                     },
+                    mainEditorCallbacks: MainEditorCallbacks(
+                      onImageDecoded: () {
+                        _hasUnappliedChanges = false;
+                      },
+                      onStateHistoryChange: (stateHistory, editor) {
+                        _hasUnappliedChanges = true;
+                      },
+                    ),
                   ),
                   configs: const ProImageEditorConfigs(),
                 ),
@@ -358,7 +403,7 @@ class _EditorScreenState extends State<EditorScreen> {
                     backgroundColor: Theme.of(context).colorScheme.primaryContainer,
                     foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
                     onPressed: _showAdvancedOptions,
-                    tooltip: 'Advanced Options',
+                    tooltip: 'Save Image',
                     child: const Icon(Icons.save),
                   ),
                 ],
@@ -562,7 +607,7 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Advanced Options'),
+      title: const Text('Save Options'),
       content: SizedBox(
         width: 500,
         child: SingleChildScrollView(
