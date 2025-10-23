@@ -7,6 +7,7 @@ import 'package:path/path.dart' as path;
 import '../services/image_service.dart';
 import '../services/file_service.dart';
 import '../widgets/save_dialog.dart';
+import '../widgets/cutout_dialog.dart';
 
 class EditorScreen extends StatefulWidget {
   final File imageFile;
@@ -22,6 +23,8 @@ class _EditorScreenState extends State<EditorScreen> {
   Uint8List? _editedImageBytes;
   bool _isProcessing = false;
   Timer? _fileCheckTimer;
+  int _editorVersion = 0;
+  bool _hasUnappliedChanges = false;
 
   @override
   void initState() {
@@ -66,6 +69,7 @@ class _EditorScreenState extends State<EditorScreen> {
   Future<void> _onEditingComplete(Uint8List editedBytes) async {
     // Store the bytes immediately
     _editedImageBytes = editedBytes;
+    _hasUnappliedChanges = false;
     
     // Small delay to let the loading dialog dismiss
     await Future.delayed(const Duration(milliseconds: 100));
@@ -241,6 +245,247 @@ class _EditorScreenState extends State<EditorScreen> {
     );
   }
 
+  Future<void> _showCutoutDialog() async {
+    // Guard: warn if there are unapplied changes in the editor
+    if (_hasUnappliedChanges) {
+      final proceed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+
+          title: const Text('Discard current changes?'),
+          content: const Text(
+            'You have unsaved changes in the editor. If you continue to Cutout without pressing the checkmark, these changes will be discarded.'
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('Cancel'),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Continue'),
+            ),
+          ],
+        ),
+      );
+      if (proceed != true) return;
+    }
+
+    // Load the original image bytes if no edits have been made yet
+    Uint8List imageBytes;
+    
+    if (_editedImageBytes == null) {
+      try {
+        imageBytes = await widget.imageFile.readAsBytes();
+      } catch (e) {
+        if (mounted && context.mounted) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text('Error loading image: $e'),
+              backgroundColor: Colors.red,
+            ),
+          );
+        }
+        return;
+      }
+    } else {
+      imageBytes = _editedImageBytes!;
+    }
+
+    if (!mounted || !context.mounted) return;
+
+    showDialog(
+      context: context,
+      builder: (context) => CutoutDialog(
+        imageBytes: imageBytes,
+        originalPath: widget.imageFile.path,
+        onApply: (processedBytes) {
+          // Apply the cutout and continue editing
+          setState(() {
+            _editedImageBytes = processedBytes;
+            _editorVersion++;
+            _hasUnappliedChanges = false;
+          });
+          
+          if (mounted && context.mounted) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Cutout applied successfully'),
+                backgroundColor: Colors.green,
+              ),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  AppBar _buildCustomAppBar(ProImageEditorState editor) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.black,
+      actions: [
+        IconButton(
+          tooltip: 'Close',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
+          onPressed: editor.closeEditor,
+        ),
+        const Spacer(),
+        IconButton(
+          tooltip: 'Undo',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.undo,
+            color: editor.canUndo == true
+                ? Colors.white
+                : Colors.white.withAlpha(80),
+          ),
+          onPressed: editor.undoAction,
+        ),
+        IconButton(
+          tooltip: 'Redo',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.redo,
+            color: editor.canRedo == true
+                ? Colors.white
+                : Colors.white.withAlpha(80),
+          ),
+          onPressed: editor.redoAction,
+        ),
+      
+        IconButton(
+          tooltip: 'Done',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: const Icon(Icons.done),
+          iconSize: 28,
+          onPressed: editor.doneEditing,
+        ),
+          IconButton(
+          tooltip: 'Save Image',
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          iconSize: 28,
+          icon:  const Icon(Icons.save),
+          onPressed: _showAdvancedOptions,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildCustomBottomBar(ProImageEditorState editor, Key key) {
+    return Scrollbar(
+      key: key,
+      scrollbarOrientation: ScrollbarOrientation.top,
+      thickness: 0,
+      child: BottomAppBar(
+        height: kBottomNavigationBarHeight,
+        color: Colors.black,
+        padding: EdgeInsets.zero,
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 550,
+                maxWidth: 550,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatIconTextButton(
+                      label:  Text('Paint', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.edit_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openPaintEditor,
+                    ),
+                    FlatIconTextButton(
+                      label: Text('Text', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.text_fields,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openTextEditor,
+                    ),
+                    // Custom button - Cutout Tool
+                
+                    FlatIconTextButton(
+                      label:  Text('Crop/ Rotate', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.crop_rotate_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openCropRotateEditor,
+                    ),
+                    FlatIconTextButton(
+                      label:  Text('Filter', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.filter,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openFilterEditor,
+                    ),
+                    FlatIconTextButton(
+                      label:  Text('Emoji', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.sentiment_satisfied_alt_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openEmojiEditor,
+                    ),    FlatIconTextButton(
+                      label: Text('Tune', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.tune,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openTuneEditor,
+                    ),
+    FlatIconTextButton(
+                      label: Text('Blur', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.blur_on,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openBlurEditor,
+                    ),
+
+                        FlatIconTextButton(
+                      label: Text('Cutout', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.content_cut,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: _showCutoutDialog,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -253,35 +498,79 @@ class _EditorScreenState extends State<EditorScreen> {
       },
       child: Stack(
         children: [
-          ProImageEditor.file(
-            widget.imageFile,
-          callbacks: ProImageEditorCallbacks(
-            onImageEditingComplete: _onEditingComplete,
-            onCloseEditor: (editorMode) {
-              // Don't close if we're in the middle of saving
-              if (!_isSaving && mounted && context.mounted) {
-                Navigator.of(context).pop();
-              }
-            },
-          ),
-            configs: const ProImageEditorConfigs(),
-          ),
-        // Advanced options button
-        if (!_isSaving)
-          Positioned(
-            bottom: 24,
-            right: 24,
-            child: SafeArea(
-              child: FloatingActionButton(
-                heroTag: 'advanced_options',
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-                onPressed: _showAdvancedOptions,
-                tooltip: 'Advanced Options',
-                child: const Icon(Icons.save),
-              ),
-            ),
-          ),
+          _editedImageBytes != null
+              ? ProImageEditor.memory(
+                  _editedImageBytes!,
+                  key: ValueKey('editor-memory-$_editorVersion'),
+                  callbacks: ProImageEditorCallbacks(
+                    onImageEditingComplete: _onEditingComplete,
+                    onCloseEditor: (editorMode) {
+                      // Don't close if we're in the middle of saving
+                      if (!_isSaving && mounted && context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    mainEditorCallbacks: MainEditorCallbacks(
+                      onImageDecoded: () {
+                        // Freshly loaded image has no user changes yet
+                        _hasUnappliedChanges = false;
+                      },
+                      onStateHistoryChange: (stateHistory, editor) {
+                        // Mark as dirty when history changes
+                        _hasUnappliedChanges = true;
+                      },
+                    ),
+                  ),
+                  configs: ProImageEditorConfigs(
+                    mainEditor: MainEditorConfigs(
+                      widgets: MainEditorWidgets(
+                        appBar: (editor, rebuildStream) => ReactiveAppbar(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomAppBar(editor),
+                        ),
+                        bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomBottomBar(editor, key),
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : ProImageEditor.file(
+                  widget.imageFile,
+                  key: ValueKey('editor-file-$_editorVersion'),
+                  callbacks: ProImageEditorCallbacks(
+                    onImageEditingComplete: _onEditingComplete,
+                    onCloseEditor: (editorMode) {
+                      // Don't close if we're in the middle of saving
+                      if (!_isSaving && mounted && context.mounted) {
+                        Navigator.of(context).pop();
+                      }
+                    },
+                    mainEditorCallbacks: MainEditorCallbacks(
+                      onImageDecoded: () {
+                        _hasUnappliedChanges = false;
+                      },
+                      onStateHistoryChange: (stateHistory, editor) {
+                        _hasUnappliedChanges = true;
+                      },
+                    ),
+                  ),
+                  configs: ProImageEditorConfigs(
+                    mainEditor: MainEditorConfigs(
+                      widgets: MainEditorWidgets(
+                        appBar: (editor, rebuildStream) => ReactiveAppbar(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomAppBar(editor),
+                        ),
+                        bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomBottomBar(editor, key),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
           // Saving overlay
           if (_isSaving)
             Positioned.fill(
@@ -479,7 +768,7 @@ class _AdvancedOptionsDialogState extends State<_AdvancedOptionsDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text('Advanced Options'),
+      title: const Text('Save Options'),
       content: SizedBox(
         width: 500,
         child: SingleChildScrollView(
