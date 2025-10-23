@@ -221,229 +221,205 @@ class _CutoutDialogState extends State<CutoutDialog> {
     return AlertDialog(
       title: const Text('Cutout Tool'),
       content: SizedBox(
-        width: 500,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Direction selection
-            const Text(
-              'Cutout Direction',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 8),
-            SegmentedButton<bool>(
-              segments: const [
-                ButtonSegment(
-                  value: true,
-                  label: Text('Vertical'),
-                  icon: Icon(Icons.swap_horiz),
-                ),
-                ButtonSegment(
-                  value: false,
-                  label: Text('Horizontal'),
-                  icon: Icon(Icons.swap_vert),
-                ),
-              ],
-              selected: {_isVertical},
-              onSelectionChanged: (Set<bool> newSelection) {
-                setState(() {
-                  _isVertical = newSelection.first;
-                  // Reset positions when changing direction
-                  _startPosition = 0.2;
-                  _endPosition = 0.8;
-                  _isSelecting = false;
-                  _selectionStart = null;
-                  _selectionEnd = null;
-                });
-                _generatePreview();
-              },
-            ),
-            const SizedBox(height: 24),
-
-            // Instructions
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.blue[200]!),
+        width: 600,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Direction selection
+              const Text(
+                'Cutout Direction',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              child: Row(
-                children: [
-                  Icon(Icons.info_outline, color: Colors.blue[700], size: 20),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      _isVertical
-                          ? 'Click and drag horizontally on the image below to select the area to remove'
-                          : 'Click and drag vertically on the image below to select the area to remove',
-                      style: TextStyle(
-                        fontSize: 14,
-                        color: Colors.blue[700],
-                      ),
-                    ),
+              const SizedBox(height: 8),
+              SegmentedButton<bool>(
+                segments: const [
+                  ButtonSegment(
+                    value: true,
+                    label: Text('Vertical'),
+                    icon: Icon(Icons.swap_horiz),
+                  ),
+                  ButtonSegment(
+                    value: false,
+                    label: Text('Horizontal'),
+                    icon: Icon(Icons.swap_vert),
                   ),
                 ],
+                selected: {_isVertical},
+                onSelectionChanged: (Set<bool> newSelection) {
+                  setState(() {
+                    _isVertical = newSelection.first;
+                    // Reset positions when changing direction
+                    _startPosition = 0.2;
+                    _endPosition = 0.8;
+                    _isSelecting = false;
+                    _selectionStart = null;
+                    _selectionEnd = null;
+                  });
+                  _generatePreview();
+                },
               ),
-            ),
-            const SizedBox(height: 16),
-
-            // Interactive image selection
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      const Text(
-                        'Select Area to Remove:',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      if (_isGeneratingPreview)
-                        const SizedBox(
-                          width: 16,
-                          height: 16,
-                          child: CircularProgressIndicator(strokeWidth: 2),
+              const SizedBox(height: 24),
+          
+              
+          
+              // Interactive image selection
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        const Text(
+                          'Select Area to Remove:',
+                          style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                    ],
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  // Interactive image
-                  LayoutBuilder(
-                    builder: (context, constraints) {
-                      return GestureDetector(
-                        onTapDown: (details) => _onImageTapDown(details, constraints),
-                        onPanUpdate: (details) => _onImagePanUpdate(details, constraints),
-                        onPanEnd: _onImagePanEnd,
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxHeight: 300,
-                            maxWidth: double.infinity,
+                        const Spacer(),
+                        if (_isGeneratingPreview)
+                          const SizedBox(
+                            width: 16,
+                            height: 16,
+                            child: CircularProgressIndicator(strokeWidth: 2),
                           ),
-                          child: Stack(
-                            children: [
-                              // Original image
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(4),
-                                child: Image.memory(
-                                  widget.imageBytes,
-                                  fit: BoxFit.contain,
-                                  errorBuilder: (context, error, stackTrace) {
-                                    return Container(
-                                      height: 100,
-                                      color: Colors.grey[300],
-                                      child: const Center(
-                                        child: Text('Image unavailable'),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                              
-                              // Selection overlay
-                              Positioned.fill(
-                                child: CustomPaint(
-                                  painter: SelectionPainter(
-                                    startPosition: _isSelecting && _selectionStart != null ? _selectionStart! : _startPosition,
-                                    endPosition: _isSelecting && _selectionEnd != null ? _selectionEnd! : _endPosition,
-                                    isVertical: _isVertical,
-                                    imageSize: Size(
-                                      constraints.maxWidth,
-                                      constraints.maxHeight,
-                                    ),
-                                    isSelecting: _isSelecting,
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    
+                    // Interactive image
+                    LayoutBuilder(
+                      builder: (context, constraints) {
+                        return GestureDetector(
+                          onTapDown: (details) => _onImageTapDown(details, constraints),
+                          onPanUpdate: (details) => _onImagePanUpdate(details, constraints),
+                          onPanEnd: _onImagePanEnd,
+                          child: Container(
+                            constraints: const BoxConstraints(
+                              maxHeight: 300,
+                              maxWidth: double.infinity,
+                            ),
+                            child: Stack(
+                              children: [
+                                // Original image
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(4),
+                                  child: Image.memory(
+                                    widget.imageBytes,
+                                    fit: BoxFit.contain,
+                                    errorBuilder: (context, error, stackTrace) {
+                                      return Container(
+                                        height: 100,
+                                        color: Colors.grey[300],
+                                        child: const Center(
+                                          child: Text('Image unavailable'),
+                                        ),
+                                      );
+                                    },
                                   ),
                                 ),
-                              ),
-                            ],
+                                
+                                // Selection overlay
+                                Positioned.fill(
+                                  child: CustomPaint(
+                                    painter: SelectionPainter(
+                                      startPosition: _isSelecting && _selectionStart != null ? _selectionStart! : _startPosition,
+                                      endPosition: _isSelecting && _selectionEnd != null ? _selectionEnd! : _endPosition,
+                                      isVertical: _isVertical,
+                                      imageSize: Size(
+                                        constraints.maxWidth,
+                                        constraints.maxHeight,
+                                      ),
+                                      isSelecting: _isSelecting,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                    
+                    const SizedBox(height: 8),
+                    
+                    // Info text
+                    Text(
+                      _isVertical
+                          ? 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image width'
+                          : 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image height',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                    Text(
+                      _isVertical
+                          ? 'New width: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original'
+                          : 'New height: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original',
+                      style: const TextStyle(fontSize: 12),
+                    ),
+                  ],
+                ),
+              ),
+              
+              const SizedBox(height: 16),
+              
+              // Result preview
+              Container(
+                padding: const EdgeInsets.all(12),
+                decoration: const BoxDecoration(
+                  color: Colors.transparent,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      'Result Preview:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    const SizedBox(height: 8),
+                    
+                    // Result image preview
+                    if (_previewImageBytes != null)
+                      Center(
+                        child: Container(
+                          constraints: const BoxConstraints(
+                            maxHeight: 200,
+                            maxWidth: double.infinity,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: Image.memory(
+                              _previewImageBytes!,
+                              fit: BoxFit.contain,
+                              errorBuilder: (context, error, stackTrace) {
+                                return Container(
+                                  height: 100,
+                                  color: Colors.transparent,
+                                  child: const Center(
+                                    child: Text('Preview unavailable'),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                  
-                  const SizedBox(height: 8),
-                  
-                  // Info text
-                  Text(
-                    _isVertical
-                        ? 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image width'
-                        : 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image height',
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                  Text(
-                    _isVertical
-                        ? 'New width: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original'
-                        : 'New height: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original',
-                    style: const TextStyle(fontSize: 12),
-                  ),
-                ],
-              ),
-            ),
-            
-            const SizedBox(height: 16),
-            
-            // Result preview
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[50],
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: Colors.grey[300]!),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'Result Preview:',
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(height: 8),
-                  
-                  // Result image preview
-                  if (_previewImageBytes != null)
-                    Container(
-                      constraints: const BoxConstraints(
-                        maxHeight: 200,
-                        maxWidth: double.infinity,
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: Image.memory(
-                          _previewImageBytes!,
-                          fit: BoxFit.contain,
-                          errorBuilder: (context, error, stackTrace) {
-                            return Container(
-                              height: 100,
-                              color: Colors.grey[300],
-                              child: const Center(
-                                child: Text('Preview unavailable'),
-                              ),
-                            );
-                          },
+                      )
+                    else if (!_isGeneratingPreview)
+                      Container(
+                        height: 100,
+                        color: Colors.transparent,
+                        child: const Center(
+                          child: Text('No preview available'),
                         ),
                       ),
-                    )
-                  else if (!_isGeneratingPreview)
-                    Container(
-                      height: 100,
-                      color: Colors.grey[300],
-                      child: const Center(
-                        child: Text('No preview available'),
-                      ),
-                    ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
       actions: [
