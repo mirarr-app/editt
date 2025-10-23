@@ -320,6 +320,64 @@ class _EditorScreenState extends State<EditorScreen> {
     );
   }
 
+  AppBar _buildCustomAppBar(ProImageEditorState editor) {
+    return AppBar(
+      automaticallyImplyLeading: false,
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.black,
+      actions: [
+        IconButton(
+          tooltip: 'Close',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.close,
+            color: Colors.white,
+          ),
+          onPressed: editor.closeEditor,
+        ),
+        const Spacer(),
+        IconButton(
+          tooltip: 'Undo',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.undo,
+            color: editor.canUndo == true
+                ? Colors.white
+                : Colors.white.withAlpha(80),
+          ),
+          onPressed: editor.undoAction,
+        ),
+        IconButton(
+          tooltip: 'Redo',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: Icon(
+            Icons.redo,
+            color: editor.canRedo == true
+                ? Colors.white
+                : Colors.white.withAlpha(80),
+          ),
+          onPressed: editor.redoAction,
+        ),
+      
+        IconButton(
+          tooltip: 'Done',
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          icon: const Icon(Icons.done),
+          iconSize: 28,
+          onPressed: editor.doneEditing,
+        ),
+          IconButton(
+          tooltip: 'Save Image',
+          color: Theme.of(context).colorScheme.onPrimaryContainer,
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          iconSize: 28,
+          icon:  const Icon(Icons.save),
+          onPressed: _showAdvancedOptions,
+        ),
+      ],
+    );
+  }
+
   Widget _buildCustomBottomBar(ProImageEditorState editor, Key key) {
     return Scrollbar(
       key: key,
@@ -466,6 +524,10 @@ class _EditorScreenState extends State<EditorScreen> {
                   configs: ProImageEditorConfigs(
                     mainEditor: MainEditorConfigs(
                       widgets: MainEditorWidgets(
+                        appBar: (editor, rebuildStream) => ReactiveAppbar(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomAppBar(editor),
+                        ),
                         bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
                           stream: rebuildStream,
                           builder: (_) => _buildCustomBottomBar(editor, key),
@@ -497,6 +559,10 @@ class _EditorScreenState extends State<EditorScreen> {
                   configs: ProImageEditorConfigs(
                     mainEditor: MainEditorConfigs(
                       widgets: MainEditorWidgets(
+                        appBar: (editor, rebuildStream) => ReactiveAppbar(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomAppBar(editor),
+                        ),
                         bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
                           stream: rebuildStream,
                           builder: (_) => _buildCustomBottomBar(editor, key),
@@ -505,22 +571,6 @@ class _EditorScreenState extends State<EditorScreen> {
                     ),
                   ),
                 ),
-        // Advanced options button (keeping only the save button as floating)
-        if (!_isSaving)
-          Positioned(
-            bottom: 24,
-            right: 24,
-            child: SafeArea(
-              child: FloatingActionButton(
-                heroTag: 'advanced_options',
-                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-                onPressed: _showAdvancedOptions,
-                tooltip: 'Save Image',
-                child: const Icon(Icons.save),
-              ),
-            ),
-          ),
           // Saving overlay
           if (_isSaving)
             Positioned.fill(
