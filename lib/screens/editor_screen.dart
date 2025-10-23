@@ -319,6 +319,95 @@ class _EditorScreenState extends State<EditorScreen> {
     );
   }
 
+  Widget _buildCustomBottomBar(ProImageEditorState editor, Key key) {
+    return Scrollbar(
+      key: key,
+      scrollbarOrientation: ScrollbarOrientation.top,
+      thickness: 0,
+      child: BottomAppBar(
+        height: kBottomNavigationBarHeight,
+        color: Colors.black,
+        padding: EdgeInsets.zero,
+        child: Center(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(
+                minWidth: 500,
+                maxWidth: 500,
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    FlatIconTextButton(
+                      label:  Text('Paint', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.edit_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openPaintEditor,
+                    ),
+                    FlatIconTextButton(
+                      label: Text('Text', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.text_fields,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openTextEditor,
+                    ),
+                    // Custom button - Cutout Tool
+                    FlatIconTextButton(
+                      label: Text('Cutout', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.content_cut,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: _showCutoutDialog,
+                    ),
+                    FlatIconTextButton(
+                      label:  Text('Crop/ Rotate', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.crop_rotate_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openCropRotateEditor,
+                    ),
+                    FlatIconTextButton(
+                      label:  Text('Filter', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.filter,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openFilterEditor,
+                    ),
+                    FlatIconTextButton(
+                      label:  Text('Emoji', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.sentiment_satisfied_alt_rounded,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openEmojiEditor,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+  
+
   @override
   Widget build(BuildContext context) {
     return PopScope(
@@ -354,7 +443,16 @@ class _EditorScreenState extends State<EditorScreen> {
                       },
                     ),
                   ),
-                  configs: const ProImageEditorConfigs(),
+                  configs: ProImageEditorConfigs(
+                    mainEditor: MainEditorConfigs(
+                      widgets: MainEditorWidgets(
+                        bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomBottomBar(editor, key),
+                        ),
+                      ),
+                    ),
+                  ),
                 )
               : ProImageEditor.file(
                   widget.imageFile,
@@ -376,37 +474,30 @@ class _EditorScreenState extends State<EditorScreen> {
                       },
                     ),
                   ),
-                  configs: const ProImageEditorConfigs(),
+                  configs: ProImageEditorConfigs(
+                    mainEditor: MainEditorConfigs(
+                      widgets: MainEditorWidgets(
+                        bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
+                          stream: rebuildStream,
+                          builder: (_) => _buildCustomBottomBar(editor, key),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-        // Tool buttons
+        // Advanced options button (keeping only the save button as floating)
         if (!_isSaving)
           Positioned(
             bottom: 24,
             right: 24,
             child: SafeArea(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // Cutout button
-                  FloatingActionButton(
-                    heroTag: 'cutout_tool',
-                    backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
-                    foregroundColor: Theme.of(context).colorScheme.onSecondaryContainer,
-                    onPressed: _showCutoutDialog,
-                    tooltip: 'Cutout Tool',
-                    child: const Icon(Icons.content_cut),
-                  ),
-                  const SizedBox(height: 12),
-                  // Advanced options button
-                  FloatingActionButton(
-                    heroTag: 'advanced_options',
-                    backgroundColor: Theme.of(context).colorScheme.primaryContainer,
-                    foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
-                    onPressed: _showAdvancedOptions,
-                    tooltip: 'Save Image',
-                    child: const Icon(Icons.save),
-                  ),
-                ],
+              child: FloatingActionButton(
+                heroTag: 'advanced_options',
+                backgroundColor: Theme.of(context).colorScheme.primaryContainer,
+                foregroundColor: Theme.of(context).colorScheme.onPrimaryContainer,
+                onPressed: _showAdvancedOptions,
+                tooltip: 'Save Image',
+                child: const Icon(Icons.save),
               ),
             ),
           ),
