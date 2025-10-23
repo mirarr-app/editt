@@ -251,6 +251,7 @@ class _EditorScreenState extends State<EditorScreen> {
       final proceed = await showDialog<bool>(
         context: context,
         builder: (context) => AlertDialog(
+
           title: const Text('Discard current changes?'),
           content: const Text(
             'You have unsaved changes in the editor. If you continue to Cutout without pressing the checkmark, these changes will be discarded.'
@@ -333,8 +334,8 @@ class _EditorScreenState extends State<EditorScreen> {
             scrollDirection: Axis.horizontal,
             child: ConstrainedBox(
               constraints: const BoxConstraints(
-                minWidth: 500,
-                maxWidth: 500,
+                minWidth: 550,
+                maxWidth: 550,
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 12.0),
@@ -361,15 +362,7 @@ class _EditorScreenState extends State<EditorScreen> {
                       onPressed: editor.openTextEditor,
                     ),
                     // Custom button - Cutout Tool
-                    FlatIconTextButton(
-                      label: Text('Cutout', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
-                      icon:  Icon(
-                        Icons.content_cut,
-                        size: 22.0,
-                        color: Theme.of(context).colorScheme.onPrimaryContainer,
-                      ),
-                      onPressed: _showCutoutDialog,
-                    ),
+                
                     FlatIconTextButton(
                       label:  Text('Crop/ Rotate', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
                       icon:  Icon(
@@ -396,6 +389,33 @@ class _EditorScreenState extends State<EditorScreen> {
                         color: Theme.of(context).colorScheme.onPrimaryContainer,
                       ),
                       onPressed: editor.openEmojiEditor,
+                    ),    FlatIconTextButton(
+                      label: Text('Tune', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.tune,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openTuneEditor,
+                    ),
+    FlatIconTextButton(
+                      label: Text('Blur', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.blur_on,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: editor.openBlurEditor,
+                    ),
+
+                        FlatIconTextButton(
+                      label: Text('Cutout', style: TextStyle(fontSize: 10.0, color: Theme.of(context).colorScheme.onPrimaryContainer)),
+                      icon:  Icon(
+                        Icons.content_cut,
+                        size: 22.0,
+                        color: Theme.of(context).colorScheme.onPrimaryContainer,
+                      ),
+                      onPressed: _showCutoutDialog,
                     ),
                   ],
                 ),
