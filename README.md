@@ -70,6 +70,7 @@ yay -S editt-bin
 
 ### Keyboard shortcuts
 
+- See Shortcuts = 'ctrl+k'
 - Text Editor = 'ctrl+t'
 - Paint Editor = 'ctrl+b'
 - Crop Editor = 'ctrl+c'
