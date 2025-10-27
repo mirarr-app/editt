@@ -70,6 +70,7 @@ yay -S editt-bin
 
 ### Keyboard shortcuts
 
+- See Shortcuts = 'ctrl+k'
 - Text Editor = 'ctrl+t'
 - Paint Editor = 'ctrl+b'
 - Crop Editor = 'ctrl+c'
@@ -77,7 +78,7 @@ yay -S editt-bin
 - Emoji Editor = 'ctrl+e'
 - Tune Editor = 'ctrl+u'
 - Blur Editor = 'ctrl+l'
-- Cutout Tool = 'ctrl+k'
+- Cutout Tool = 'ctrl+x'
 - Undo = 'ctrl+z'
 - Redo = 'ctrl+y'
 - Save = 'ctrl+s'
