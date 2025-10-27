@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:window_manager/window_manager.dart';
 import 'screens/viewer_screen.dart';
 import 'services/theme_service.dart';
+import 'widgets/keyboard_shortcut_test.dart';
 
 void main(List<String> args) async {
   // Ensure Flutter binding is initialized
@@ -28,13 +29,24 @@ void main(List<String> args) async {
     initialImagePath = args[0];
   }
 
-  runApp(MainApp(initialImagePath: initialImagePath));
+  // Check for debug flag
+  const bool testKeyboardShortcuts = false; // Set to true to test shortcuts
+  
+  runApp(MainApp(
+    initialImagePath: initialImagePath,
+    testKeyboardShortcuts: testKeyboardShortcuts,
+  ));
 }
 
 class MainApp extends StatefulWidget {
   final String? initialImagePath;
+  final bool testKeyboardShortcuts;
 
-  const MainApp({super.key, this.initialImagePath});
+  const MainApp({
+    super.key, 
+    this.initialImagePath,
+    this.testKeyboardShortcuts = false,
+  });
 
   @override
   State<MainApp> createState() => _MainAppState();
@@ -106,7 +118,9 @@ class _MainAppState extends State<MainApp> {
         fontFamily: 'JetbrainsMono',
       ),
       themeMode: ThemeMode.system,
-      home: ViewerScreen(initialImagePath: widget.initialImagePath),
+      home: widget.testKeyboardShortcuts 
+          ? const KeyboardShortcutTest()
+          : ViewerScreen(initialImagePath: widget.initialImagePath),
     );
   }
 }

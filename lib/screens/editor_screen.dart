@@ -6,6 +6,7 @@ import 'package:pro_image_editor/pro_image_editor.dart';
 import 'package:path/path.dart' as path;
 import '../services/image_service.dart';
 import '../services/file_service.dart';
+import '../services/keyboard_shortcut_service.dart';
 import '../widgets/save_dialog.dart';
 import '../widgets/cutout_dialog.dart';
 
@@ -25,16 +26,19 @@ class _EditorScreenState extends State<EditorScreen> {
   Timer? _fileCheckTimer;
   int _editorVersion = 0;
   bool _hasUnappliedChanges = false;
+  bool _shortcutsInitialized = false;
 
   @override
   void initState() {
     super.initState();
     _startFileWatcher();
+    _registerKeyboardShortcuts();
   }
 
   @override
   void dispose() {
     _fileCheckTimer?.cancel();
+    // Don't clear shortcuts here - let them persist for the editor
     super.dispose();
   }
 
@@ -64,6 +68,50 @@ class _EditorScreenState extends State<EditorScreen> {
         }
       }
     });
+  }
+
+  void _registerKeyboardShortcuts() {
+    // Register shortcuts immediately when the screen is initialized
+    // We'll update them with actual editor callbacks when the editor is available
+    EditorShortcutHelper.registerEditorShortcuts(
+      onTextEditor: () {},
+      onPaintEditor: () {},
+      onCropEditor: () {},
+      onFilterEditor: () {},
+      onEmojiEditor: () {},
+      onTuneEditor: () {},
+      onBlurEditor: () {},
+      onCutoutTool: () {},
+      onUndo: () {},
+      onRedo: () {},
+      onSave: () {},
+      onClose: () {},
+      onDone: () {},
+    );
+  }
+
+  void _setupEditorShortcuts(ProImageEditorState editor) {
+    if (_shortcutsInitialized) {
+      return;
+    }
+    
+    EditorShortcutHelper.updateEditorShortcuts(
+      onTextEditor: editor.openTextEditor,
+      onPaintEditor: editor.openPaintEditor,
+      onCropEditor: editor.openCropRotateEditor,
+      onFilterEditor: editor.openFilterEditor,
+      onEmojiEditor: editor.openEmojiEditor,
+      onTuneEditor: editor.openTuneEditor,
+      onBlurEditor: editor.openBlurEditor,
+      onCutoutTool: _showCutoutDialog,
+      onUndo: editor.undoAction,
+      onRedo: editor.redoAction,
+      onSave: _showAdvancedOptions,
+      onClose: editor.closeEditor,
+      onDone: editor.doneEditing,
+    );
+    
+    _shortcutsInitialized = true;
   }
 
   Future<void> _onEditingComplete(Uint8List editedBytes) async {
@@ -305,6 +353,7 @@ class _EditorScreenState extends State<EditorScreen> {
             _editedImageBytes = processedBytes;
             _editorVersion++;
             _hasUnappliedChanges = false;
+            _shortcutsInitialized = false; // Reset shortcuts when editor changes
           });
           
           if (mounted && context.mounted) {
@@ -488,15 +537,16 @@ class _EditorScreenState extends State<EditorScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      canPop: !_isSaving,
-      onPopInvokedWithResult: (didPop, result) async {
-        // Prevent back navigation during save
-        if (_isSaving) {
-          return;
-        }
-      },
-      child: Stack(
+    return KeyboardShortcutHandler(
+      child: PopScope(
+        canPop: !_isSaving,
+        onPopInvokedWithResult: (didPop, result) async {
+          // Prevent back navigation during save
+          if (_isSaving) {
+            return;
+          }
+        },
+        child: Stack(
         children: [
           _editedImageBytes != null
               ? ProImageEditor.memory(
@@ -526,7 +576,11 @@ class _EditorScreenState extends State<EditorScreen> {
                       widgets: MainEditorWidgets(
                         appBar: (editor, rebuildStream) => ReactiveAppbar(
                           stream: rebuildStream,
-                          builder: (_) => _buildCustomAppBar(editor),
+                          builder: (_) {
+                            // Set up keyboard shortcuts when app bar is built
+                            _setupEditorShortcuts(editor);
+                            return _buildCustomAppBar(editor);
+                          },
                         ),
                         bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
                           stream: rebuildStream,
@@ -561,7 +615,11 @@ class _EditorScreenState extends State<EditorScreen> {
                       widgets: MainEditorWidgets(
                         appBar: (editor, rebuildStream) => ReactiveAppbar(
                           stream: rebuildStream,
-                          builder: (_) => _buildCustomAppBar(editor),
+                          builder: (_) {
+                            // Set up keyboard shortcuts when app bar is built
+                            _setupEditorShortcuts(editor);
+                            return _buildCustomAppBar(editor);
+                          },
                         ),
                         bottomBar: (editor, rebuildStream, key) => ReactiveWidget(
                           stream: rebuildStream,
@@ -598,6 +656,7 @@ class _EditorScreenState extends State<EditorScreen> {
             ),
         ],
       ),
+    ),
     );
   }
 }

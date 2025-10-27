@@ -67,6 +67,23 @@ yay -S editt-bin
 - **Text**: Add text overlays
 - **Stickers & Emojis**: Add stickers and emojis
 
+
+### Keyboard shortcuts
+
+- Text Editor = 'ctrl+t'
+- Paint Editor = 'ctrl+b'
+- Crop Editor = 'ctrl+c'
+- Filter Editor = 'ctrl+f'
+- Emoji Editor = 'ctrl+e'
+- Tune Editor = 'ctrl+u'
+- Blur Editor = 'ctrl+l'
+- Cutout Tool = 'ctrl+k'
+- Undo = 'ctrl+z'
+- Redo = 'ctrl+y'
+- Save = 'ctrl+s'
+- Close = 'ctrl+w'
+- Done = 'ctrl+d'
+
 ### Advanced Options
 - **Format Conversion**: Convert between JPG, PNG, and WebP formats
 - **Resolution Reduction**: Scale down image dimensions
