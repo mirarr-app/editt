@@ -9,6 +9,7 @@ import '../services/file_service.dart';
 import '../services/keyboard_shortcut_service.dart';
 import '../widgets/save_dialog.dart';
 import '../widgets/cutout_dialog.dart';
+import '../widgets/keyboard_shortcuts_dialog.dart';
 
 class EditorScreen extends StatefulWidget {
   final File imageFile;
@@ -87,6 +88,7 @@ class _EditorScreenState extends State<EditorScreen> {
       onSave: () {},
       onClose: () {},
       onDone: () {},
+      onShortCutHelper: () => _showKeyboardShortcutsDialog(),
     );
   }
 
@@ -109,6 +111,7 @@ class _EditorScreenState extends State<EditorScreen> {
       onSave: _showAdvancedOptions,
       onClose: editor.closeEditor,
       onDone: editor.doneEditing,
+      onShortCutHelper: _showKeyboardShortcutsDialog,
     );
     
     _shortcutsInitialized = true;
@@ -291,6 +294,11 @@ class _EditorScreenState extends State<EditorScreen> {
         },
       ),
     );
+  }
+
+  void _showKeyboardShortcutsDialog() {
+    if (!mounted || !context.mounted) return;
+    showKeyboardShortcutsDialog(context);
   }
 
   Future<void> _showCutoutDialog() async {

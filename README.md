@@ -77,7 +77,7 @@ yay -S editt-bin
 - Emoji Editor = 'ctrl+e'
 - Tune Editor = 'ctrl+u'
 - Blur Editor = 'ctrl+l'
-- Cutout Tool = 'ctrl+k'
+- Cutout Tool = 'ctrl+x'
 - Undo = 'ctrl+z'
 - Redo = 'ctrl+y'
 - Save = 'ctrl+s'

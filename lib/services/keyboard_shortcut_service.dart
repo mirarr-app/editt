@@ -315,12 +315,13 @@ class EditorShortcuts {
   static const String emojiEditor = 'ctrl+e';
   static const String tuneEditor = 'ctrl+u';
   static const String blurEditor = 'ctrl+l';
-  static const String cutoutTool = 'ctrl+k';
+  static const String cutoutTool = 'ctrl+x';
   static const String undo = 'ctrl+z';
   static const String redo = 'ctrl+y';
   static const String save = 'ctrl+s';
   static const String close = 'ctrl+w';
   static const String done = 'ctrl+d';
+  static const String shortCutHelper = 'ctrl+k';
 }
 
 /// Helper class to make registering editor shortcuts easier
@@ -340,6 +341,7 @@ class EditorShortcutHelper {
     required VoidCallback onSave,
     required VoidCallback onClose,
     required VoidCallback onDone,
+    required VoidCallback onShortCutHelper,
   }) {
     KeyboardShortcutService.registerShortcut(EditorShortcuts.textEditor, onTextEditor, description: 'Open Text Editor');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.paintEditor, onPaintEditor, description: 'Open Paint Editor');
@@ -354,6 +356,7 @@ class EditorShortcutHelper {
     KeyboardShortcutService.registerShortcut(EditorShortcuts.save, onSave, description: 'Save Image');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.close, onClose, description: 'Close Editor');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.done, onDone, description: 'Done Editing');
+    KeyboardShortcutService.registerShortcut(EditorShortcuts.shortCutHelper, onShortCutHelper, description: 'Short Cut Helper');
   }
 
   /// Update existing editor shortcuts with new callbacks
@@ -371,6 +374,7 @@ class EditorShortcutHelper {
     required VoidCallback onSave,
     required VoidCallback onClose,
     required VoidCallback onDone,
+    required VoidCallback onShortCutHelper,
   }) {
     // Batch update all shortcuts without triggering notifications
     KeyboardShortcutService._shortcuts[EditorShortcuts.textEditor] = onTextEditor;
@@ -386,7 +390,7 @@ class EditorShortcutHelper {
     KeyboardShortcutService._shortcuts[EditorShortcuts.save] = onSave;
     KeyboardShortcutService._shortcuts[EditorShortcuts.close] = onClose;
     KeyboardShortcutService._shortcuts[EditorShortcuts.done] = onDone;
-    
+    KeyboardShortcutService._shortcuts[EditorShortcuts.shortCutHelper] = onShortCutHelper;
     // Trigger notification only once after all updates
     KeyboardShortcutService._notifyShortcutsUpdated();
   }
