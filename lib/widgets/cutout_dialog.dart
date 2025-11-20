@@ -19,6 +19,8 @@ class CutoutDialog extends StatefulWidget {
 }
 
 class _CutoutDialogState extends State<CutoutDialog> {
+  static const double _kImageHeight = 350.0;
+
   bool _isVertical = true;
   double _startPosition = 0.2;
   double _endPosition = 0.8;
@@ -79,16 +81,22 @@ class _CutoutDialogState extends State<CutoutDialog> {
   void _onImageTapDown(TapDownDetails details, BoxConstraints constraints) {
     if (_isGeneratingPreview) return;
     
-    // Calculate the actual image display size considering BoxFit.contain
-    final imageSize = _calculateImageDisplaySize(constraints);
+    final rect = _calculateImageRect(constraints);
+    
+    // Map local position to image relative position (0.0 to 1.0)
+    final localPos = details.localPosition;
+    
+    // Check if tap is within the image rect
+    if (!rect.contains(localPos)) return;
     
     double position;
     if (_isVertical) {
       // Vertical cutout: drag horizontally (use dx)
-      position = details.localPosition.dx / imageSize.width;
+      // Relative to the image rect, not the container
+      position = (localPos.dx - rect.left) / rect.width;
     } else {
       // Horizontal cutout: drag vertically (use dy)
-      position = details.localPosition.dy / imageSize.height;
+      position = (localPos.dy - rect.top) / rect.height;
     }
     
     position = position.clamp(0.0, 1.0);
@@ -103,16 +111,14 @@ class _CutoutDialogState extends State<CutoutDialog> {
   void _onImagePanUpdate(DragUpdateDetails details, BoxConstraints constraints) {
     if (!_isSelecting || _selectionStart == null) return;
     
-    // Calculate the actual image display size considering BoxFit.contain
-    final imageSize = _calculateImageDisplaySize(constraints);
+    final rect = _calculateImageRect(constraints);
+    final localPos = details.localPosition;
     
     double position;
     if (_isVertical) {
-      // Vertical cutout: drag horizontally (use dx)
-      position = details.localPosition.dx / imageSize.width;
+      position = (localPos.dx - rect.left) / rect.width;
     } else {
-      // Horizontal cutout: drag vertically (use dy)
-      position = details.localPosition.dy / imageSize.height;
+      position = (localPos.dy - rect.top) / rect.height;
     }
     
     position = position.clamp(0.0, 1.0);
@@ -139,32 +145,36 @@ class _CutoutDialogState extends State<CutoutDialog> {
     _generatePreview();
   }
 
-  Size _calculateImageDisplaySize(BoxConstraints constraints) {
+  Rect _calculateImageRect(BoxConstraints constraints) {
+    final double containerWidth = constraints.maxWidth;
+    final double containerHeight = constraints.maxHeight;
+
     if (_imageDimensions == null) {
-      // Fallback to container size if dimensions not available
-      return Size(constraints.maxWidth, constraints.maxHeight);
+      return Rect.fromLTWH(0, 0, containerWidth, containerHeight);
     }
     
-    final imageWidth = _imageDimensions!['width']!.toDouble();
-    final imageHeight = _imageDimensions!['height']!.toDouble();
+    final double imageWidth = _imageDimensions!['width']!.toDouble();
+    final double imageHeight = _imageDimensions!['height']!.toDouble();
     
-    // Calculate the actual display size with BoxFit.contain
-    final containerAspectRatio = constraints.maxWidth / constraints.maxHeight;
-    final imageAspectRatio = imageWidth / imageHeight;
+    final double imageRatio = imageWidth / imageHeight;
+    final double containerRatio = containerWidth / containerHeight;
     
     double displayWidth, displayHeight;
     
-    if (imageAspectRatio > containerAspectRatio) {
+    if (imageRatio > containerRatio) {
       // Image is wider than container - fit to width
-      displayWidth = constraints.maxWidth;
-      displayHeight = constraints.maxWidth / imageAspectRatio;
+      displayWidth = containerWidth;
+      displayHeight = containerWidth / imageRatio;
     } else {
       // Image is taller than container - fit to height
-      displayHeight = constraints.maxHeight;
-      displayWidth = constraints.maxHeight * imageAspectRatio;
+      displayHeight = containerHeight;
+      displayWidth = containerHeight * imageRatio;
     }
     
-    return Size(displayWidth, displayHeight);
+    final double dx = (containerWidth - displayWidth) / 2;
+    final double dy = (containerHeight - displayHeight) / 2;
+    
+    return Rect.fromLTWH(dx, dy, displayWidth, displayHeight);
   }
 
   Future<void> _applyCutout() async {
@@ -220,203 +230,148 @@ class _CutoutDialogState extends State<CutoutDialog> {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: const Text('Cutout Tool'),
+      surfaceTintColor: Colors.transparent,
       content: SizedBox(
-        width: 600,
+        width: 700,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Direction selection
-              const Text(
-                'Cutout Direction',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(height: 8),
-              SegmentedButton<bool>(
-                segments: const [
-                  ButtonSegment(
-                    value: true,
-                    label: Text('Vertical'),
-                    icon: Icon(Icons.swap_horiz),
-                  ),
-                  ButtonSegment(
-                    value: false,
-                    label: Text('Horizontal'),
-                    icon: Icon(Icons.swap_vert),
-                  ),
-                ],
-                selected: {_isVertical},
-                onSelectionChanged: (Set<bool> newSelection) {
-                  setState(() {
-                    _isVertical = newSelection.first;
-                    // Reset positions when changing direction
-                    _startPosition = 0.2;
-                    _endPosition = 0.8;
-                    _isSelecting = false;
-                    _selectionStart = null;
-                    _selectionEnd = null;
-                  });
-                  _generatePreview();
-                },
-              ),
-              const SizedBox(height: 24),
-          
-              
-          
-              // Interactive image selection
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.transparent,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
+              // Controls and Instructions
+              Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          'Select Area to Remove:',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        const Spacer(),
-                        if (_isGeneratingPreview)
-                          const SizedBox(
-                            width: 16,
-                            height: 16,
-                            child: CircularProgressIndicator(strokeWidth: 2),
+                        Text(
+                          'Select area to REMOVE',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
+                        ),
+                
                       ],
                     ),
-                    const SizedBox(height: 8),
-                    
-                    // Interactive image
-                    LayoutBuilder(
-                      builder: (context, constraints) {
+                  ),
+                  SegmentedButton<bool>(
+                    segments: const [
+                      ButtonSegment(
+                        value: true,
+                        label: Text('Vertical Cut'),
+                        icon: Icon(Icons.swap_horiz),
+                      ),
+                      ButtonSegment(
+                        value: false,
+                        label: Text('Horizontal Cut'),
+                        icon: Icon(Icons.swap_vert),
+                      ),
+                    ],
+                    selected: {_isVertical},
+                    onSelectionChanged: (Set<bool> newSelection) {
+                      setState(() {
+                        _isVertical = newSelection.first;
+                        _startPosition = 0.2;
+                        _endPosition = 0.8;
+                        _isSelecting = false;
+                        _selectionStart = null;
+                        _selectionEnd = null;
+                      });
+                      _generatePreview();
+                    },
+                  ),
+                ],
+              ),
+              
+              const SizedBox(height: 16),
+              
+              // Editor Area
+              LayoutBuilder(
+                builder: (context, constraints) {
+                  // Enforce fixed height for the editor container
+                  return SizedBox(
+                    height: _kImageHeight,
+                    width: double.infinity,
+                    child: LayoutBuilder(
+                      builder: (context, innerConstraints) {
                         return GestureDetector(
-                          onTapDown: (details) => _onImageTapDown(details, constraints),
-                          onPanUpdate: (details) => _onImagePanUpdate(details, constraints),
+                          onTapDown: (details) => _onImageTapDown(details, innerConstraints),
+                          onPanUpdate: (details) => _onImagePanUpdate(details, innerConstraints),
                           onPanEnd: _onImagePanEnd,
                           child: Container(
-                            constraints: const BoxConstraints(
-                              maxHeight: 300,
-                              maxWidth: double.infinity,
-                            ),
+                            color: Colors.grey.withValues(alpha: 0.1), // Background for empty space
                             child: Stack(
+                              fit: StackFit.expand,
                               children: [
-                                // Original image
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(4),
+                                // Image
+                                Positioned.fill(
                                   child: Image.memory(
                                     widget.imageBytes,
                                     fit: BoxFit.contain,
                                     errorBuilder: (context, error, stackTrace) {
-                                      return Container(
-                                        height: 100,
-                                        color: Colors.grey[300],
-                                        child: const Center(
-                                          child: Text('Image unavailable'),
-                                        ),
+                                      return const Center(
+                                        child: Text('Image unavailable'),
                                       );
                                     },
                                   ),
                                 ),
                                 
-                                // Selection overlay
+                                // Selection Overlay
                                 Positioned.fill(
                                   child: CustomPaint(
                                     painter: SelectionPainter(
                                       startPosition: _isSelecting && _selectionStart != null ? _selectionStart! : _startPosition,
                                       endPosition: _isSelecting && _selectionEnd != null ? _selectionEnd! : _endPosition,
                                       isVertical: _isVertical,
-                                      imageSize: Size(
-                                        constraints.maxWidth,
-                                        constraints.maxHeight,
-                                      ),
+                                      imageRect: _calculateImageRect(innerConstraints),
                                       isSelecting: _isSelecting,
                                     ),
                                   ),
                                 ),
+                                
+                                // Loading indicator
+                                if (_isGeneratingPreview)
+                                  const Center(
+                                    child: CircularProgressIndicator(),
+                                  ),
                               ],
                             ),
                           ),
                         );
                       },
                     ),
-                    
-                    const SizedBox(height: 8),
-                    
-                    // Info text
-                    Text(
-                      _isVertical
-                          ? 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image width'
-                          : 'Will remove ${((_endPosition - _startPosition) * 100).toStringAsFixed(0)}% of the image height',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                    Text(
-                      _isVertical
-                          ? 'New width: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original'
-                          : 'New height: ${((1 - (_endPosition - _startPosition)) * 100).toStringAsFixed(0)}% of original',
-                      style: const TextStyle(fontSize: 12),
-                    ),
-                  ],
-                ),
+                  );
+                },
               ),
               
-              const SizedBox(height: 16),
+              const SizedBox(height: 24),
               
-              // Result preview
+              // Preview Area
+              const Text(
+                'Result Preview',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
               Container(
-                padding: const EdgeInsets.all(12),
-                decoration: const BoxDecoration(
-                  color: Colors.transparent,
+                height: 150,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Theme.of(context).dividerColor),
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.grey.withValues(alpha: 0.05),
                 ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'Result Preview:',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 8),
-                    
-                    // Result image preview
-                    if (_previewImageBytes != null)
-                      Center(
-                        child: Container(
-                          constraints: const BoxConstraints(
-                            maxHeight: 200,
-                            maxWidth: double.infinity,
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: Image.memory(
-                              _previewImageBytes!,
-                              fit: BoxFit.contain,
-                              errorBuilder: (context, error, stackTrace) {
-                                return Container(
-                                  height: 100,
-                                  color: Colors.transparent,
-                                  child: const Center(
-                                    child: Text('Preview unavailable'),
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
+                child: _previewImageBytes != null
+                    ? ClipRRect(
+                        borderRadius: BorderRadius.circular(7),
+                        child: Image.memory(
+                          _previewImageBytes!,
+                          fit: BoxFit.contain,
                         ),
                       )
-                    else if (!_isGeneratingPreview)
-                      Container(
-                        height: 100,
-                        color: Colors.transparent,
-                        child: const Center(
-                          child: Text('No preview available'),
-                        ),
-                      ),
-                  ],
-                ),
+                    : const Center(child: Text('No preview')),
               ),
             ],
           ),
@@ -427,15 +382,9 @@ class _CutoutDialogState extends State<CutoutDialog> {
           onPressed: _isProcessing ? null : () => Navigator.of(context).pop(),
           child: const Text('Cancel'),
         ),
-        ElevatedButton(
+        FilledButton(
           onPressed: _isProcessing ? null : _applyCutout,
-          child: _isProcessing
-              ? const SizedBox(
-                  width: 16,
-                  height: 16,
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                )
-              : const Text('Apply Cutout'),
+          child: const Text('Apply Cutout'),
         ),
       ],
     );
@@ -446,61 +395,66 @@ class SelectionPainter extends CustomPainter {
   final double startPosition;
   final double endPosition;
   final bool isVertical;
-  final Size imageSize;
+  final Rect imageRect;
   final bool isSelecting;
 
   SelectionPainter({
     required this.startPosition,
     required this.endPosition,
     required this.isVertical,
-    required this.imageSize,
+    required this.imageRect,
     this.isSelecting = false,
   });
 
   @override
   void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.red.withValues(alpha: 0.3)
+    // Clip to the image area so we don't draw on the background
+    canvas.save();
+    canvas.clipRect(imageRect);
+
+    final overlayPaint = Paint()
+      ..color = Colors.black.withValues(alpha: 0.6)
       ..style = PaintingStyle.fill;
 
     final borderPaint = Paint()
       ..color = Colors.red
       ..style = PaintingStyle.stroke
       ..strokeWidth = 2;
-
+      
+    // Draw the "removed" area dark
     if (isVertical) {
-      // Vertical cutout - draw horizontal selection
-      final startX = startPosition * size.width;
-      final endX = endPosition * size.width;
+      final startX = imageRect.left + (startPosition * imageRect.width);
+      final endX = imageRect.left + (endPosition * imageRect.width);
       
-      // Draw selection rectangle
-      canvas.drawRect(
-        Rect.fromLTRB(startX, 0, endX, size.height),
-        paint,
-      );
+      final rect = Rect.fromLTRB(startX, imageRect.top, endX, imageRect.bottom);
+      canvas.drawRect(rect, overlayPaint);
+      canvas.drawRect(rect, borderPaint);
       
-      // Draw border
-      canvas.drawRect(
-        Rect.fromLTRB(startX, 0, endX, size.height),
-        borderPaint,
-      );
+      _drawDeletePattern(canvas, rect);
+      
     } else {
-      // Horizontal cutout - draw vertical selection
-      final startY = startPosition * size.height;
-      final endY = endPosition * size.height;
+      final startY = imageRect.top + (startPosition * imageRect.height);
+      final endY = imageRect.top + (endPosition * imageRect.height);
       
-      // Draw selection rectangle
-      canvas.drawRect(
-        Rect.fromLTRB(0, startY, size.width, endY),
-        paint,
-      );
+      final rect = Rect.fromLTRB(imageRect.left, startY, imageRect.right, endY);
+      canvas.drawRect(rect, overlayPaint);
+      canvas.drawRect(rect, borderPaint);
       
-      // Draw border
-      canvas.drawRect(
-        Rect.fromLTRB(0, startY, size.width, endY),
-        borderPaint,
-      );
+      _drawDeletePattern(canvas, rect);
     }
+
+    canvas.restore();
+  }
+  
+  void _drawDeletePattern(Canvas canvas, Rect rect) {
+    final paint = Paint()
+      ..color = Colors.red.withValues(alpha: 0.3)
+      ..strokeWidth = 1
+      ..style = PaintingStyle.stroke;
+      
+    // Simple cross
+    canvas.drawLine(rect.topLeft, rect.bottomRight, paint);
+    canvas.drawLine(rect.topRight, rect.bottomLeft, paint);
   }
 
   @override
@@ -508,7 +462,8 @@ class SelectionPainter extends CustomPainter {
     return oldDelegate.startPosition != startPosition ||
         oldDelegate.endPosition != endPosition ||
         oldDelegate.isVertical != isVertical ||
-        oldDelegate.imageSize != imageSize ||
+        oldDelegate.imageRect != imageRect ||
         oldDelegate.isSelecting != isSelecting;
   }
 }
+
