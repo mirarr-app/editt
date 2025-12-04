@@ -86,6 +86,79 @@ class _ViewerScreenState extends State<ViewerScreen> {
     });
   }
 
+  Future<void> _deleteCurrentImage() async {
+    if (_currentImage == null) return;
+
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Delete Image'),
+        content: const Text('Are you sure you want to delete this image?\nThis action cannot be undone.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(context, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.red),
+            child: const Text('Delete'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true) {
+      try {
+        final fileToDelete = _currentImage!;
+        
+        // Find the index before deleting so we know where to go next
+        final currentIndex = _directoryImages.indexWhere((file) => 
+          file.path == fileToDelete.path || file.absolute.path == fileToDelete.absolute.path);
+          
+        // Delete the file
+        await fileToDelete.delete();
+        
+        // Remove from the list
+        setState(() {
+          _directoryImages.removeAt(currentIndex);
+        });
+
+        if (_directoryImages.isEmpty) {
+          // No more images
+          setState(() {
+            _currentImage = null;
+            _errorMessage = 'No more images in this directory';
+          });
+        } else {
+          // Go to the next image, or the previous if we were at the end
+          int nextIndex = currentIndex;
+          if (nextIndex >= _directoryImages.length) {
+            nextIndex = _directoryImages.length - 1;
+          }
+          
+          setState(() {
+            _currentImage = _directoryImages[nextIndex];
+          });
+        }
+        
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Image deleted'),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Failed to delete image: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+    }
+  }
+
   Future<void> _pickImage() async {
     setState(() {
       _isLoading = true;
@@ -147,6 +220,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
       bindings: {
         const SingleActivator(LogicalKeyboardKey.arrowRight): () => _navigateImage(1),
         const SingleActivator(LogicalKeyboardKey.arrowLeft): () => _navigateImage(-1),
+        const SingleActivator(LogicalKeyboardKey.delete): _deleteCurrentImage,
       },
       child: Focus(
         focusNode: _focusNode,
@@ -166,6 +240,12 @@ class _ViewerScreenState extends State<ViewerScreen> {
                     onPressed: _pickImage,
                     tooltip: 'Open Image',
                   ),
+                  if (_currentImage != null)
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline, size: 12),
+                      onPressed: _deleteCurrentImage,
+                      tooltip: 'Delete Image',
+                    ),
                   IconButton(
                     icon: const Icon(Icons.remove, size: 12),
                     onPressed: () => windowManager.minimize(),
@@ -311,7 +391,8 @@ class _ViewerScreenState extends State<ViewerScreen> {
       imageFile: _currentImage!,
       onEditPressed: _openEditor,
       onFileDeleted: () {
-        // Handle file deletion
+        // Handle file deletion - check if we need this anymore since we handle delete internally now?
+        // We keep it for external deletions
         setState(() {
           _currentImage = null;
           _errorMessage = 'The image file was deleted';
