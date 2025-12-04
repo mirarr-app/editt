@@ -26,6 +26,7 @@ class KeyboardShortcutsDialog extends StatelessWidget {
       {'key': 'Ctrl+S', 'description': 'Save Image'},
       {'key': 'Ctrl+W', 'description': 'Close Editor'},
       {'key': 'Ctrl+D', 'description': 'Done Editing'},
+      {'key': 'Ctrl + Shift + S', 'description': 'Save to Clipboard'},
       {'key': 'Ctrl+K', 'description': 'Show Keyboard Shortcuts'},
     ];
 
