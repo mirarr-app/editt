@@ -70,6 +70,7 @@ yay -S editt-bin
 
 ### Keyboard shortcuts
 
+#### Editor Shortcuts
 - See Shortcuts = 'ctrl+k'
 - Text Editor = 'ctrl+t'
 - Paint Editor = 'ctrl+b'
@@ -84,6 +85,15 @@ yay -S editt-bin
 - Save = 'ctrl+s'
 - Close = 'ctrl+w'
 - Done = 'ctrl+d'
+
+#### Viewer Shortcuts
+- Next Image = 'Right Arrow' or 'L'
+- Previous Image = 'Left Arrow' or 'H'
+- Zoom In = 'K'
+- Zoom Out = 'J'
+- Delete Image = 'DD' (quick) or 'Delete' (confirm)
+- Close Image = 'Q'
+- See Shortcuts = 'ctrl+k'
 
 ### Advanced Options
 - **Format Conversion**: Convert between JPG, PNG, and WebP formats

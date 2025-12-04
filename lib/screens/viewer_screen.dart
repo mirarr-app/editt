@@ -5,6 +5,7 @@ import 'package:desktop_drop/desktop_drop.dart';
 import 'package:window_manager/window_manager.dart';
 import '../services/file_service.dart';
 import '../widgets/image_viewer.dart';
+import '../widgets/keyboard_shortcuts_dialog.dart';
 import 'editor_screen.dart';
 
 class ViewerScreen extends StatefulWidget {
@@ -23,6 +24,10 @@ class _ViewerScreenState extends State<ViewerScreen> {
   String? _errorMessage;
   bool _isDragging = false;
   final FocusNode _focusNode = FocusNode();
+  final TransformationController _transformationController = TransformationController();
+  
+  // Shortcuts needed for double key presses like 'dd'
+  DateTime? _lastDKeyPress;
 
   @override
   void initState() {
@@ -35,6 +40,7 @@ class _ViewerScreenState extends State<ViewerScreen> {
   @override
   void dispose() {
     _focusNode.dispose();
+    _transformationController.dispose();
     super.dispose();
   }
 
@@ -86,29 +92,90 @@ class _ViewerScreenState extends State<ViewerScreen> {
     });
   }
 
-  Future<void> _deleteCurrentImage() async {
+  void _handleDKey() {
+    final now = DateTime.now();
+    if (_lastDKeyPress != null && 
+        now.difference(_lastDKeyPress!) < const Duration(milliseconds: 500)) {
+      // Double press detected - delete without confirmation for the shortcut
+      _performDeletion(confirm: false);
+      _lastDKeyPress = null;
+    } else {
+      _lastDKeyPress = now;
+    }
+  }
+
+  void _handleZoom(bool zoomIn) {
     if (_currentImage == null) return;
 
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Delete Image'),
-        content: const Text('Are you sure you want to delete this image?\nThis action cannot be undone.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.pop(context, true),
-            style: TextButton.styleFrom(foregroundColor: Colors.red),
-            child: const Text('Delete'),
-          ),
-        ],
-      ),
-    );
+    final Matrix4 currentMatrix = _transformationController.value;
+    final double currentScale = currentMatrix.getMaxScaleOnAxis();
+    final double scaleFactor = zoomIn ? 1.2 : 1/1.2;
+    final double newScale = currentScale * scaleFactor;
+    
+    // If we are zooming out and the new scale is less than 1.0 (or close to it),
+    // we should reset to identity (center the image) to avoid panning issues.
+    if (!zoomIn && newScale <= 1.05) {
+       _transformationController.value = Matrix4.identity();
+       return;
+    }
 
-    if (confirmed == true) {
+    // Clamp scale
+    if (newScale < 0.5 || newScale > 4.0) return;
+    
+    // Apply scale relative to the center of the viewport
+    // To zoom around the center, we need to:
+    // 1. Translate to center
+    // 2. Scale
+    // 3. Translate back
+    
+    // However, since we don't know the exact viewport center easily here without LayoutBuilder context in this method,
+    // and InteractiveViewer handles gesture zooming nicely around the focal point.
+    // For keyboard zooming, zooming in/out on the center of the VIEWPORT is usually desired.
+    
+    // A simplified approach that works well for "reset to center on zoom out" is handled above.
+    // For general zooming, we can just scale the matrix.
+    
+    final Matrix4 newMatrix = currentMatrix.clone();
+    newMatrix.scale(scaleFactor);
+    
+    _transformationController.value = newMatrix;
+  }
+
+  void _closeImage() {
+    setState(() {
+      _currentImage = null;
+      _directoryImages = [];
+    });
+  }
+
+  Future<void> _performDeletion({bool confirm = true}) async {
+     if (_currentImage == null) return;
+
+    bool shouldDelete = true;
+
+    if (confirm) {
+      final confirmed = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Delete Image'),
+          content: const Text('Are you sure you want to delete this image?\nThis action cannot be undone.'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              child: const Text('Delete'),
+            ),
+          ],
+        ),
+      );
+      shouldDelete = confirmed == true;
+    }
+
+    if (shouldDelete) {
       try {
         final fileToDelete = _currentImage!;
         
@@ -159,6 +226,10 @@ class _ViewerScreenState extends State<ViewerScreen> {
     }
   }
 
+  Future<void> _deleteCurrentImage() async {
+    await _performDeletion(confirm: true);
+  }
+
   Future<void> _pickImage() async {
     setState(() {
       _isLoading = true;
@@ -199,6 +270,10 @@ class _ViewerScreenState extends State<ViewerScreen> {
     }
   }
 
+  void _showKeyboardShortcutsDialog() {
+    showKeyboardShortcutsDialog(context, mode: ShortcutMode.viewer);
+  }
+
   Future<void> _handleDroppedFiles(List<String> paths) async {
     if (paths.isEmpty) return;
     
@@ -220,6 +295,14 @@ class _ViewerScreenState extends State<ViewerScreen> {
       bindings: {
         const SingleActivator(LogicalKeyboardKey.arrowRight): () => _navigateImage(1),
         const SingleActivator(LogicalKeyboardKey.arrowLeft): () => _navigateImage(-1),
+        const SingleActivator(LogicalKeyboardKey.keyL): () => _navigateImage(1),
+        const SingleActivator(LogicalKeyboardKey.keyH): () => _navigateImage(-1),
+        const SingleActivator(LogicalKeyboardKey.keyK): () => _handleZoom(true),
+        const SingleActivator(LogicalKeyboardKey.keyJ): () => _handleZoom(false),
+        const SingleActivator(LogicalKeyboardKey.keyQ): _closeImage,
+        const SingleActivator(LogicalKeyboardKey.keyD): _handleDKey,
+        const SingleActivator(LogicalKeyboardKey.keyK, control: true): _showKeyboardShortcutsDialog,
+        // Also keep Delete key for convenience
         const SingleActivator(LogicalKeyboardKey.delete): _deleteCurrentImage,
       },
       child: Focus(
@@ -391,13 +474,13 @@ class _ViewerScreenState extends State<ViewerScreen> {
       imageFile: _currentImage!,
       onEditPressed: _openEditor,
       onFileDeleted: () {
-        // Handle file deletion - check if we need this anymore since we handle delete internally now?
-        // We keep it for external deletions
+        // Handle file deletion
         setState(() {
           _currentImage = null;
           _errorMessage = 'The image file was deleted';
         });
       },
+      transformationController: _transformationController,
     );
   }
 }

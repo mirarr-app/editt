@@ -298,7 +298,7 @@ class _EditorScreenState extends State<EditorScreen> {
 
   void _showKeyboardShortcutsDialog() {
     if (!mounted || !context.mounted) return;
-    showKeyboardShortcutsDialog(context);
+    showKeyboardShortcutsDialog(context, mode: ShortcutMode.editor);
   }
 
   Future<void> _showCutoutDialog() async {

@@ -6,12 +6,14 @@ class ImageViewer extends StatefulWidget {
   final File imageFile;
   final VoidCallback? onEditPressed;
   final VoidCallback? onFileDeleted;
+  final TransformationController? transformationController;
 
   const ImageViewer({
     super.key,
     required this.imageFile,
     this.onEditPressed,
     this.onFileDeleted,
+    this.transformationController,
   });
 
   @override
@@ -21,16 +23,21 @@ class ImageViewer extends StatefulWidget {
 class _ImageViewerState extends State<ImageViewer> {
   Timer? _fileCheckTimer;
   bool _fileExists = true;
+  late TransformationController _transformationController;
 
   @override
   void initState() {
     super.initState();
+    _transformationController = widget.transformationController ?? TransformationController();
     _startFileWatcher();
   }
 
   @override
   void dispose() {
     _fileCheckTimer?.cancel();
+    if (widget.transformationController == null) {
+      _transformationController.dispose();
+    }
     super.dispose();
   }
 
@@ -41,6 +48,8 @@ class _ImageViewerState extends State<ImageViewer> {
       setState(() {
         _fileExists = true;
       });
+      // Reset zoom when image changes
+      _transformationController.value = Matrix4.identity();
     }
   }
 
@@ -109,6 +118,7 @@ class _ImageViewerState extends State<ImageViewer> {
             // Image with zoom and pan
             Center(
               child: InteractiveViewer(
+                transformationController: _transformationController,
                 minScale: 0.5,
                 maxScale: 4.0,
                 child: Image.file(
@@ -210,4 +220,3 @@ class _ImageViewerState extends State<ImageViewer> {
     );
   }
 }
-
