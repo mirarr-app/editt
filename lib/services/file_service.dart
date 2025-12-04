@@ -73,5 +73,29 @@ class FileService {
     final ext = newExtension.startsWith('.') ? newExtension : '.$newExtension';
     return path.join(dir, '$basename$ext');
   }
-}
 
+  /// Get all image files in the same directory as the reference file
+  static Future<List<File>> getImagesInDirectory(String referenceFilePath) async {
+    try {
+      final dir = Directory(path.dirname(referenceFilePath));
+      if (!await dir.exists()) return [];
+
+      final List<File> images = [];
+      await for (final entity in dir.list()) {
+        if (entity is File && validateImagePath(entity.path)) {
+          images.add(entity);
+        }
+      }
+      
+      // Sort files by name to ensure consistent order
+      images.sort((a, b) => a.path.toLowerCase().compareTo(b.path.toLowerCase()));
+      
+      return images;
+    } catch (e) {
+      if (kDebugMode) {
+        debugPrint('Error listing images: $e');
+      }
+      return [];
+    }
+  }
+}

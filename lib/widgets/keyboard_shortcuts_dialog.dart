@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 
+enum ShortcutMode { viewer, editor }
+
 class KeyboardShortcutsDialog extends StatelessWidget {
-  const KeyboardShortcutsDialog({super.key});
+  final ShortcutMode mode;
+  
+  const KeyboardShortcutsDialog({
+    super.key, 
+    this.mode = ShortcutMode.editor,
+  });
 
   @override
   Widget build(BuildContext context) {
-    final shortcuts = [
+    final List<Map<String, String>> editorShortcuts = [
       {'key': 'Ctrl+T', 'description': 'Open Text Editor'},
       {'key': 'Ctrl+B', 'description': 'Open Paint Editor'},
       {'key': 'Ctrl+C', 'description': 'Open Crop/Rotate Editor'},
@@ -19,8 +26,23 @@ class KeyboardShortcutsDialog extends StatelessWidget {
       {'key': 'Ctrl+S', 'description': 'Save Image'},
       {'key': 'Ctrl+W', 'description': 'Close Editor'},
       {'key': 'Ctrl+D', 'description': 'Done Editing'},
+      {'key': 'Ctrl + Shift + S', 'description': 'Save to Clipboard'},
       {'key': 'Ctrl+K', 'description': 'Show Keyboard Shortcuts'},
     ];
+
+    final List<Map<String, String>> viewerShortcuts = [
+      {'key': 'Right / L', 'description': 'Next Image'},
+      {'key': 'Left / H', 'description': 'Previous Image'},
+      {'key': 'K', 'description': 'Zoom In'},
+      {'key': 'J', 'description': 'Zoom Out'},
+      {'key': 'DD', 'description': 'Delete Image'},
+      {'key': 'Delete', 'description': 'Delete Image (Confirm)'},
+      {'key': 'Q', 'description': 'Close Image'},
+      {'key': 'Ctrl+K', 'description': 'Show Keyboard Shortcuts'},
+    ];
+
+    final shortcuts = mode == ShortcutMode.editor ? editorShortcuts : viewerShortcuts;
+    final title = mode == ShortcutMode.editor ? 'Editor Shortcuts' : 'Viewer Shortcuts';
 
     return Dialog(
       child: SizedBox(
@@ -70,7 +92,7 @@ class KeyboardShortcutsDialog extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Editor Shortcuts',
+                      title,
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
@@ -142,11 +164,10 @@ class KeyboardShortcutsDialog extends StatelessWidget {
 }
 
 /// Show the keyboard shortcuts dialog
-void showKeyboardShortcutsDialog(BuildContext context) {
+void showKeyboardShortcutsDialog(BuildContext context, {ShortcutMode mode = ShortcutMode.editor}) {
   showDialog(
     context: context,
-    builder: (context) => const KeyboardShortcutsDialog(),
+    builder: (context) => KeyboardShortcutsDialog(mode: mode),
     barrierDismissible: true,
   );
 }
-

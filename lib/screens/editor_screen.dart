@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:pro_image_editor/pro_image_editor.dart';
 import 'package:path/path.dart' as path;
+import 'package:super_clipboard/super_clipboard.dart';
 import '../services/image_service.dart';
 import '../services/file_service.dart';
 import '../services/keyboard_shortcut_service.dart';
@@ -28,6 +29,7 @@ class _EditorScreenState extends State<EditorScreen> {
   int _editorVersion = 0;
   bool _hasUnappliedChanges = false;
   bool _shortcutsInitialized = false;
+  bool _saveToClipboardAction = false;
 
   @override
   void initState() {
@@ -86,6 +88,7 @@ class _EditorScreenState extends State<EditorScreen> {
       onUndo: () {},
       onRedo: () {},
       onSave: () {},
+      onSaveToClipboard: () {},
       onClose: () {},
       onDone: () {},
       onShortCutHelper: () => _showKeyboardShortcutsDialog(),
@@ -109,6 +112,12 @@ class _EditorScreenState extends State<EditorScreen> {
       onUndo: editor.undoAction,
       onRedo: editor.redoAction,
       onSave: _showAdvancedOptions,
+      onSaveToClipboard: () {
+        setState(() {
+          _saveToClipboardAction = true;
+        });
+        editor.doneEditing();
+      },
       onClose: editor.closeEditor,
       onDone: editor.doneEditing,
       onShortCutHelper: _showKeyboardShortcutsDialog,
@@ -125,9 +134,77 @@ class _EditorScreenState extends State<EditorScreen> {
     // Small delay to let the loading dialog dismiss
     await Future.delayed(const Duration(milliseconds: 100));
     
+    // Check if we need to save to clipboard
+    if (_saveToClipboardAction) {
+      await _handleClipboardSave(editedBytes);
+      return;
+    }
+
     // Show save dialog
     if (mounted && context.mounted && !_isProcessing) {
       _showSaveDialogAndSave(editedBytes).ignore();
+    }
+  }
+
+  Future<void> _handleClipboardSave(Uint8List imageBytes) async {
+    setState(() {
+      _saveToClipboardAction = false; // Reset flag
+      _isProcessing = true;
+      _isSaving = true; // Mark as saving to prevent premature close
+    });
+
+    try {
+      final pngBytes = await ImageService.convertFormat(
+        imageBytes: imageBytes,
+        targetFormat: ImageFormat.png,
+        quality: 100,
+      );
+
+      if (pngBytes == null) {
+        throw Exception('Failed to convert image to PNG');
+      }
+
+      final clipboard = SystemClipboard.instance;
+      if (clipboard == null) {
+        throw Exception('Clipboard not available');
+      }
+      
+      final item = DataWriterItem();
+      item.add(Formats.png(pngBytes));
+      await clipboard.write([item]);
+
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(
+            content: Text('Image saved to clipboard (PNG)'),
+            backgroundColor: Colors.green,
+            duration: Duration(seconds: 2),
+          ),
+        );
+        // Close the editor after successful save to clipboard
+        Navigator.of(context).pop();
+      }
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text('Error saving to clipboard: $e'),
+            backgroundColor: Colors.red,
+          ),
+        );
+      }
+      // Reset _isSaving so we can exit if we want
+      if (mounted) {
+        setState(() {
+          _isSaving = false;
+        });
+      }
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isProcessing = false;
+        });
+      }
     }
   }
 
@@ -298,7 +375,7 @@ class _EditorScreenState extends State<EditorScreen> {
 
   void _showKeyboardShortcutsDialog() {
     if (!mounted || !context.mounted) return;
-    showKeyboardShortcutsDialog(context);
+    showKeyboardShortcutsDialog(context, mode: ShortcutMode.editor);
   }
 
   Future<void> _showCutoutDialog() async {

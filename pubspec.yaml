@@ -1,7 +1,7 @@
 name: editt
 description: "A Flutter-based image view and editor app for linux"
 publish_to: 'none'
-version: 0.2.2
+version: 0.3.0
 
 environment:
   sdk: ^3.5.3
@@ -16,6 +16,7 @@ dependencies:
   path: ^1.8.0
   desktop_drop: ^0.4.4
   window_manager: ^0.5.1
+  super_clipboard: ^0.9.1
 
 dev_dependencies:
   flutter_test:

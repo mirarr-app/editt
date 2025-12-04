@@ -321,6 +321,7 @@ class EditorShortcuts {
   static const String save = 'ctrl+s';
   static const String close = 'ctrl+w';
   static const String done = 'ctrl+d';
+  static const String saveToClipboard = 'ctrl+shift+s';
   static const String shortCutHelper = 'ctrl+k';
 }
 
@@ -341,6 +342,7 @@ class EditorShortcutHelper {
     required VoidCallback onSave,
     required VoidCallback onClose,
     required VoidCallback onDone,
+    required VoidCallback onSaveToClipboard,
     required VoidCallback onShortCutHelper,
   }) {
     KeyboardShortcutService.registerShortcut(EditorShortcuts.textEditor, onTextEditor, description: 'Open Text Editor');
@@ -354,6 +356,7 @@ class EditorShortcutHelper {
     KeyboardShortcutService.registerShortcut(EditorShortcuts.undo, onUndo, description: 'Undo');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.redo, onRedo, description: 'Redo');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.save, onSave, description: 'Save Image');
+    KeyboardShortcutService.registerShortcut(EditorShortcuts.saveToClipboard, onSaveToClipboard, description: 'Save to Clipboard');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.close, onClose, description: 'Close Editor');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.done, onDone, description: 'Done Editing');
     KeyboardShortcutService.registerShortcut(EditorShortcuts.shortCutHelper, onShortCutHelper, description: 'Short Cut Helper');
@@ -374,6 +377,7 @@ class EditorShortcutHelper {
     required VoidCallback onSave,
     required VoidCallback onClose,
     required VoidCallback onDone,
+    required VoidCallback onSaveToClipboard,
     required VoidCallback onShortCutHelper,
   }) {
     // Batch update all shortcuts without triggering notifications
@@ -388,6 +392,7 @@ class EditorShortcutHelper {
     KeyboardShortcutService._shortcuts[EditorShortcuts.undo] = onUndo;
     KeyboardShortcutService._shortcuts[EditorShortcuts.redo] = onRedo;
     KeyboardShortcutService._shortcuts[EditorShortcuts.save] = onSave;
+    KeyboardShortcutService._shortcuts[EditorShortcuts.saveToClipboard] = onSaveToClipboard;
     KeyboardShortcutService._shortcuts[EditorShortcuts.close] = onClose;
     KeyboardShortcutService._shortcuts[EditorShortcuts.done] = onDone;
     KeyboardShortcutService._shortcuts[EditorShortcuts.shortCutHelper] = onShortCutHelper;
