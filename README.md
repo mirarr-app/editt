@@ -85,6 +85,7 @@ yay -S editt-bin
 - Save = 'ctrl+s'
 - Close = 'ctrl+w'
 - Done = 'ctrl+d'
+- Quick save to clipboard = 'ctrl shift + s'
 
 #### Viewer Shortcuts
 - Next Image = 'Right Arrow' or 'L'

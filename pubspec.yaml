@@ -16,6 +16,7 @@ dependencies:
   path: ^1.8.0
   desktop_drop: ^0.4.4
   window_manager: ^0.5.1
+  super_clipboard: ^0.9.1
 
 dev_dependencies:
   flutter_test:
