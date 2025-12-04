@@ -34,6 +34,16 @@ class _ImageViewerState extends State<ImageViewer> {
     super.dispose();
   }
 
+  @override
+  void didUpdateWidget(ImageViewer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imageFile.path != widget.imageFile.path) {
+      setState(() {
+        _fileExists = true;
+      });
+    }
+  }
+
   void _startFileWatcher() {
     // Check if file exists every 2 seconds
     _fileCheckTimer = Timer.periodic(const Duration(seconds: 2), (timer) async {

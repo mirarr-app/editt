@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:desktop_drop/desktop_drop.dart';
 import 'package:window_manager/window_manager.dart';
 import '../services/file_service.dart';
@@ -17,9 +18,11 @@ class ViewerScreen extends StatefulWidget {
 
 class _ViewerScreenState extends State<ViewerScreen> {
   File? _currentImage;
+  List<File> _directoryImages = [];
   bool _isLoading = false;
   String? _errorMessage;
   bool _isDragging = false;
+  final FocusNode _focusNode = FocusNode();
 
   @override
   void initState() {
@@ -29,6 +32,12 @@ class _ViewerScreenState extends State<ViewerScreen> {
     }
   }
 
+  @override
+  void dispose() {
+    _focusNode.dispose();
+    super.dispose();
+  }
+
   Future<void> _loadImageFromPath(String path) async {
     setState(() {
       _isLoading = true;
@@ -36,16 +45,45 @@ class _ViewerScreenState extends State<ViewerScreen> {
     });
 
     if (FileService.validateImagePath(path)) {
+      final directoryImages = await FileService.getImagesInDirectory(path);
+      
       setState(() {
         _currentImage = File(path);
+        _directoryImages = directoryImages;
         _isLoading = false;
       });
+      
+      // Request focus so keyboard shortcuts work immediately
+      _focusNode.requestFocus();
     } else {
       setState(() {
         _errorMessage = 'Invalid image path or file not found: $path';
         _isLoading = false;
       });
     }
+  }
+
+  void _navigateImage(int direction) {
+    if (_currentImage == null || _directoryImages.isEmpty) return;
+
+    // Try to find current image by path or absolute path
+    final currentIndex = _directoryImages.indexWhere((file) => 
+      file.path == _currentImage!.path || file.absolute.path == _currentImage!.absolute.path);
+      
+    if (currentIndex == -1) return;
+
+    int newIndex = currentIndex + direction;
+    
+    // Loop around
+    if (newIndex < 0) {
+      newIndex = _directoryImages.length - 1;
+    } else if (newIndex >= _directoryImages.length) {
+      newIndex = 0;
+    }
+
+    setState(() {
+      _currentImage = _directoryImages[newIndex];
+    });
   }
 
   Future<void> _pickImage() async {
@@ -56,12 +94,13 @@ class _ViewerScreenState extends State<ViewerScreen> {
 
     final file = await FileService.pickImageFile();
 
-    setState(() {
-      if (file != null) {
-        _currentImage = file;
-      }
-      _isLoading = false;
-    });
+    if (file != null) {
+      await _loadImageFromPath(file.path);
+    } else {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   Future<void> _openEditor() async {
@@ -78,6 +117,11 @@ class _ViewerScreenState extends State<ViewerScreen> {
     if (result != null && result is File) {
       setState(() {
         _currentImage = result;
+      });
+      // Refresh directory images in case new file was created
+      final directoryImages = await FileService.getImagesInDirectory(result.path);
+      setState(() {
+        _directoryImages = directoryImages;
       });
     }
   }
@@ -99,66 +143,76 @@ class _ViewerScreenState extends State<ViewerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(50),
-        child: GestureDetector(
-          onPanStart: (details) {
-            windowManager.startDragging();
-          },
-          child: AppBar(
-            title: const Text('Editt', style: TextStyle(fontFamily: 'JetbrainsMono')),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.folder_open, size: 12),
-                onPressed: _pickImage,
-                tooltip: 'Open Image',
+    return CallbackShortcuts(
+      bindings: {
+        const SingleActivator(LogicalKeyboardKey.arrowRight): () => _navigateImage(1),
+        const SingleActivator(LogicalKeyboardKey.arrowLeft): () => _navigateImage(-1),
+      },
+      child: Focus(
+        focusNode: _focusNode,
+        autofocus: true,
+        child: Scaffold(
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(50),
+            child: GestureDetector(
+              onPanStart: (details) {
+                windowManager.startDragging();
+              },
+              child: AppBar(
+                title: const Text('Editt', style: TextStyle(fontFamily: 'JetbrainsMono')),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.folder_open, size: 12),
+                    onPressed: _pickImage,
+                    tooltip: 'Open Image',
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.remove, size: 12),
+                    onPressed: () => windowManager.minimize(),
+                    tooltip: 'Minimize',
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.crop_square, size: 12),
+                    onPressed: () async {
+                      if (await windowManager.isMaximized()) {
+                        windowManager.unmaximize();
+                      } else {
+                        windowManager.maximize();
+                      }
+                    },
+                    tooltip: 'Maximize/Restore',
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close, size: 12),
+                    onPressed: () => windowManager.close(),
+                    tooltip: 'Close',
+                  ),
+                ],
               ),
-              IconButton(
-                icon: const Icon(Icons.remove, size: 12),
-                onPressed: () => windowManager.minimize(),
-                tooltip: 'Minimize',
-              ),
-              IconButton(
-                icon: const Icon(Icons.crop_square, size: 12),
-                onPressed: () async {
-                  if (await windowManager.isMaximized()) {
-                    windowManager.unmaximize();
-                  } else {
-                    windowManager.maximize();
-                  }
-                },
-                tooltip: 'Maximize/Restore',
-              ),
-              IconButton(
-                icon: const Icon(Icons.close, size: 12),
-                onPressed: () => windowManager.close(),
-                tooltip: 'Close',
-              ),
-            ],
+            ),
+          ),
+          body: DropTarget(
+            onDragEntered: (details) {
+              setState(() {
+                _isDragging = true;
+              });
+            },
+            onDragExited: (details) {
+              setState(() {
+                _isDragging = false;
+              });
+            },
+            onDragDone: (details) async {
+              setState(() {
+                _isDragging = false;
+              });
+              
+              final paths = details.files.map((file) => file.path).toList();
+              await _handleDroppedFiles(paths);
+            },
+            child: _buildBody(),
           ),
         ),
-      ),
-      body: DropTarget(
-        onDragEntered: (details) {
-          setState(() {
-            _isDragging = true;
-          });
-        },
-        onDragExited: (details) {
-          setState(() {
-            _isDragging = false;
-          });
-        },
-        onDragDone: (details) async {
-          setState(() {
-            _isDragging = false;
-          });
-          
-          final paths = details.files.map((file) => file.path).toList();
-          await _handleDroppedFiles(paths);
-        },
-        child: _buildBody(),
       ),
     );
   }
@@ -266,4 +320,3 @@ class _ViewerScreenState extends State<ViewerScreen> {
     );
   }
 }
-
